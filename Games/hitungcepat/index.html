@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hitung Cepat</title>
+
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#141e30">
+  <meta name="description" content="Game latihan hitung cepat untuk meningkatkan kemampuan matematika">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Hitung Cepat">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <style>
+    :root {
+      --bg: #141e30;
+      --card: rgba(0, 0, 0, .35);
+      --text: #fff;
+      --btn: #fff;
+      --btn-text: #222;
+    }
+
+    .light {
+      --bg: #f2f2f2;
+      --card: #ffffff;
+      --text: #222;
+      --btn: #222;
+      --btn-text: #fff;
+    }
+
+    body {
+      margin: 0;
+      font-family: Segoe UI, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .game {
+      background: var(--card);
+      padding: 20px;
+      border-radius: 18px;
+      width: 350px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, .4);
+    }
+
+    h1 {
+      margin: 5px 0;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    .question {
+      font-size: 40px;
+      margin: 15px 0;
+      font-weight: bold;
+    }
+
+    .feedback {
+      height: 20px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .feedback.correct {
+      color: #4caf50;
+    }
+
+    .feedback.wrong {
+      color: #ff5c5c;
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .keypad button {
+      padding: 14px 0;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background: var(--btn);
+      color: var(--btn-text);
+      cursor: pointer;
+    }
+
+    .keypad button:active {
+      transform: scale(0.95);
+    }
+
+    select,
+    .toggle {
+      width: 100%;
+      margin: 6px 0;
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+    }
+
+    .btn-start {
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .btn-start:hover {
+      transform: scale(1.02);
+    }
+
+    .btn-start:active {
+      transform: scale(0.98);
+    }
+
+    .btn-start:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .small {
+      font-size: 12px;
+      opacity: .8;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="game">
+    <h1>⚡ Hitung Cepat</h1>
+
+    <div class="top">
+      <div>Score: <span id="score">0</span></div>
+      <div>Time: <span id="time">00:00</span></div>
+      <div>High: <span id="highScore">0</span></div>
+    </div>
+
+    <select id="mode">
+      <option value="countdown">⏳ Countdown (60s)</option>
+      <option value="timer">▶️ Start Time</option>
+    </select>
+
+    <button class="btn-start" id="startBtn" onclick="startGame()">🚀 Mulai</button>
+
+    <button class="toggle" onclick="toggleTheme()">🌙 / ☀️ Dark / Light</button>
+    <button class="toggle" onclick="toggleSound()" id="soundBtn">🔊 Sound ON</button>
+
+    <div class="question" id="question">?</div>
+    <div class="feedback" id="feedback"></div>
+
+    <div class="keypad">
+      <button onclick="answer(0)">0</button>
+      <button onclick="answer(1)">1</button>
+      <button onclick="answer(2)">2</button>
+      <button onclick="answer(3)">3</button>
+      <button onclick="answer(4)">4</button>
+      <button onclick="answer(5)">5</button>
+      <button onclick="answer(6)">6</button>
+      <button onclick="answer(7)">7</button>
+      <button onclick="answer(8)">8</button>
+      <button onclick="answer(9)">9</button>
+    </div>
+
+    <div class="small">Jawaban = digit terakhir hasil</div>
+  </div>
+
+  <audio id="ok" preload="auto" crossorigin="anonymous">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="bad" preload="auto" crossorigin="anonymous">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3" type="audio/mpeg">
+  </audio>
+  <script>
+    let a, b, correct;
+    let score = 0;
+    let highScore = localStorage.getItem("highScore") || 0;
+    let soundEnabled = localStorage.getItem("soundEnabled") !== "false"; // default true
+
+    let mode = "countdown";
+    let time = 60;
+    let timerInterval;
+    let startTimestamp;
+    let gameStarted = false;
+    let timerStarted = false;
+
+    // Audio elements
+    const okSound = document.getElementById("ok");
+    const badSound = document.getElementById("bad");
+
+    // Web Audio API untuk fallback beep sound
+    let audioContext;
+    let audioReady = false;
+
+    function initAudio() {
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      audioReady = true;
+    }
+
+    // Beep sound fallback menggunakan Web Audio API
+    function playBeep(frequency, duration) {
+      if (!audioContext) initAudio();
+
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+
+      oscillator.frequency.value = frequency;
+      oscillator.type = 'sine';
+
+      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + duration);
+    }
+
+    // Play sound dengan fallback
+    function playSound(type) {
+      if (!soundEnabled) return;
+
+      const sound = type === 'ok' ? okSound : badSound;
+
+      // Try to play HTML audio first
+      sound.currentTime = 0;
+      const playPromise = sound.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch(err => {
+          console.log("HTML Audio failed, using beep fallback:", err);
+          // Fallback to Web Audio API beep
+          if (type === 'ok') {
+            playBeep(800, 0.15); // High beep for correct
+          } else {
+            playBeep(200, 0.3); // Low beep for wrong
+          }
+        });
+      }
+    }
+
+    // Preload audio on first interaction
+    document.addEventListener('click', function initOnClick() {
+      initAudio();
+      okSound.load();
+      badSound.load();
+      document.removeEventListener('click', initOnClick);
+    }, { once: true });
+
+    document.getElementById("highScore").innerText = highScore;
+    document.getElementById("time").innerText = "--:--";
+    updateSoundButton();
+
+    function formatTime(sec) {
+      let m = Math.floor(sec / 60);
+      let s = sec % 60;
+      return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    }
+
+    function startGame(keepQuestion = false) {
+      // Reset game
+      score = 0;
+      document.getElementById("score").innerText = score;
+      gameStarted = true;
+      timerStarted = false;
+
+      // Update button
+      const btn = document.getElementById("startBtn");
+      btn.innerText = "🔄 Restart";
+
+      // Clear existing timer
+      clearInterval(timerInterval);
+
+      // Reset time display
+      mode = document.getElementById("mode").value;
+      if (mode === "countdown") {
+        time = 60;
+        document.getElementById("time").innerText = formatTime(time);
+      } else {
+        document.getElementById("time").innerText = "00:00";
+      }
+
+      // Generate new question ONLY if requested
+      if (!keepQuestion) {
+        newQuestion();
+      }
+
+      // Start the timer immediately
+      startTimer();
+    }
+
+    function startTimer() {
+      if (timerStarted) return; // Jangan start lagi jika sudah jalan
+      timerStarted = true;
+
+      clearInterval(timerInterval);
+      mode = document.getElementById("mode").value;
+
+      if (mode === "countdown") {
+        time = 60;
+        document.getElementById("time").innerText = formatTime(time);
+
+        timerInterval = setInterval(() => {
+          time--;
+          document.getElementById("time").innerText = formatTime(time);
+
+          if (time <= 0) {
+            clearInterval(timerInterval);
+            gameStarted = false;
+            timerStarted = false;
+            alert("⏱️ Waktu habis!\nScore kamu: " + score);
+            document.getElementById("startBtn").innerText = "🚀 Mulai";
+          }
+        }, 1000);
+      }
+
+      if (mode === "timer") {
+        startTimestamp = Date.now();
+
+        timerInterval = setInterval(() => {
+          let elapsed = Math.floor((Date.now() - startTimestamp) / 1000);
+          document.getElementById("time").innerText = formatTime(elapsed);
+        }, 1000);
+      }
+    }
+
+    function newQuestion() {
+      a = Math.floor(Math.random() * 10) + 1;
+      b = Math.floor(Math.random() * 10) + 1;
+      correct = (a + b) % 10;
+      document.getElementById("question").innerText = `${a} + ${b}`;
+    }
+
+    function answer(n) {
+      // Auto-start timer saat jawaban pertama (jika game sudah dimulai tapi timer mati, atau game belum mulai)
+      if (gameStarted && !timerStarted) {
+        startTimer();
+      }
+
+      // Jika game belum dimulai, mulai dulu TAPI jangan ganti soal (keepQuestion = true)
+      if (!gameStarted) {
+        startGame(true);
+      }
+
+      const feedbackEl = document.getElementById("feedback");
+
+      if (n === correct) {
+        // Jawaban benar
+        score += 10;
+        document.getElementById("score").innerText = score;
+
+        if (score > highScore) {
+          highScore = score;
+          localStorage.setItem("highScore", highScore);
+          document.getElementById("highScore").innerText = highScore;
+        }
+
+        // Feedback visual
+        feedbackEl.className = "feedback correct";
+        feedbackEl.innerText = "✓ Benar!";
+
+        // Play sound
+        playSound('ok');
+
+        setTimeout(() => {
+          feedbackEl.innerText = "";
+          feedbackEl.className = "feedback";
+        }, 500);
+
+        newQuestion();
+      } else {
+        // Jawaban salah - kurangi score
+        score = Math.max(0, score - 5); // Kurangi 5, tapi tidak boleh negatif
+        document.getElementById("score").innerText = score;
+
+        feedbackEl.className = "feedback wrong";
+        feedbackEl.innerText = `✗ Salah! Jawabannya: ${correct}`;
+
+        // Play sound
+        playSound('bad');
+
+        setTimeout(() => {
+          feedbackEl.innerText = "";
+          feedbackEl.className = "feedback";
+        }, 1000); // Lebih lama agar user bisa baca jawaban yang benar
+      }
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      localStorage.setItem("soundEnabled", soundEnabled);
+      updateSoundButton();
+    }
+
+    function updateSoundButton() {
+      const btn = document.getElementById("soundBtn");
+      btn.innerText = soundEnabled ? "🔊 Sound ON" : "🔇 Sound OFF";
+    }
+
+    document.getElementById("mode").addEventListener("change", () => {
+      // Reset saat ganti mode
+      gameStarted = false;
+      timerStarted = false;
+      clearInterval(timerInterval);
+      score = 0;
+      document.getElementById("score").innerText = score;
+      document.getElementById("time").innerText = "--:--";
+      document.getElementById("startBtn").innerText = "🚀 Mulai";
+      newQuestion();
+    });
+
+    // Keyboard support untuk menjawab soal
+    document.addEventListener("keydown", (e) => {
+      // Cek apakah tombol yang ditekan adalah angka 0-9
+      if (e.key >= '0' && e.key <= '9') {
+        const num = parseInt(e.key);
+        answer(num);
+
+        // Tambahkan efek visual pada tombol yang ditekan
+        const buttons = document.querySelectorAll('.keypad button');
+        buttons[num].style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          buttons[num].style.transform = 'scale(1)';
+        }, 100);
+      }
+    });
+
+    // Jangan auto-start, tunggu user klik Mulai atau jawab
+    newQuestion();
+
+    // Register Service Worker untuk PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => {
+            console.log('Service Worker registered! Scope:', reg.scope);
+
+            reg.onupdatefound = () => {
+              const installingWorker = reg.installing;
+              installingWorker.onstatechange = () => {
+                if (installingWorker.state === 'installed') {
+                  if (navigator.serviceWorker.controller) {
+                    console.log('New content is available; please refresh.');
+                  } else {
+                    console.log('Content is cached for offline use.');
+                  }
+                }
+              };
+            };
+          })
+          .catch(err => console.log('Service Worker registration failed:', err));
+      });
+    }
+  </script>
+
+</body>
+
+</html>
