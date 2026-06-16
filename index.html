@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mifpro Project Portal - Muhammad Miftahul Ulum</title>
+    <!-- Meta SEO -->
+    <meta name="description" content="Portal utama Mifpro oleh Muhammad Miftahul Ulum. Akses cepat ke CV interaktif, game seru, solusi digital profesional, dan galeri aplikasi web produktivitas.">
+    <meta name="keywords" content="Mifpro, Muhammad Miftahul Ulum, Web Developer Surabaya, IT Professional, Portofolio IT, Jasa Pembuatan Website, ERP Solution, Game Hub, CV Online, Apps Showcase">
+    <meta name="author" content="Muhammad Miftahul Ulum">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mifpro.com/">
+    <meta property="og:title" content="Mifpro Project Portal - Muhammad Miftahul Ulum">
+    <meta property="og:description" content="Portal utama Mifpro - Akses cepat ke CV interaktif, game seru, solusi digital, dan aplikasi web lainnya.">
+    <meta property="og:image" content="https://mifpro.com/img/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://mifpro.com/">
+    <meta property="twitter:title" content="Mifpro Project Portal - Muhammad Miftahul Ulum">
+    <meta property="twitter:description" content="Portal utama Mifpro - Akses cepat ke CV interaktif, game seru, solusi digital, dan aplikasi web lainnya.">
+    <meta property="twitter:image" content="https://mifpro.com/img/og-image.jpg">
+
+    <!-- Canonical Link -->
+    <link rel="canonical" href="https://mifpro.com/">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* CSS Variables for design system - BRIGHT WHITE THEME */
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.8);
+            --border-card: rgba(0, 0, 0, 0.05);
+            --border-card-hover: rgba(0, 0, 0, 0.1);
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            
+            --glass-blur: 16px;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.06);
+            
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            
+            --transition-speed: 0.3s;
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Base Resets */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Soft Pastel Background Ambient Lights */
+        .ambient-light {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .light-blue {
+            top: -10%;
+            left: -10%;
+            width: 45vw;
+            height: 45vw;
+            background: radial-gradient(circle, #e0f2fe 0%, transparent 70%);
+        }
+
+        .light-pink {
+            bottom: -10%;
+            right: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, #fce7f3 0%, transparent 70%);
+        }
+
+        .light-purple {
+            top: 35%;
+            left: 30%;
+            width: 35vw;
+            height: 35vw;
+            background: radial-gradient(circle, #e0e7ff 0%, transparent 70%);
+        }
+
+        /* Portal Container */
+        .portal-wrapper {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Elegant Hero Section */
+        .portal-hero {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            animation: fadeInDown 0.8s var(--ease-out);
+        }
+
+        .portal-hero .welcome-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1.1rem;
+            border-radius: 99px;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .portal-hero .welcome-badge i {
+            color: #ec4899;
+            animation: pulse 1.5s infinite;
+        }
+
+        .portal-hero h1 {
+            font-family: var(--font-heading);
+            font-size: 3.2rem;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+            color: #0f172a;
+            letter-spacing: -1px;
+        }
+
+        .portal-hero h1 span {
+            background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 50%, #db2777 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .portal-hero p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Landscape Grid/List Layout */
+        .portal-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 100%;
+        }
+
+        /* Landscape Portal Cards */
+        .portal-card {
+            text-decoration: none;
+            color: inherit;
+            border-radius: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            padding: 1.75rem 2.25rem;
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            box-shadow: var(--card-shadow);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            transition: all var(--transition-speed) var(--ease-out);
+            position: relative;
+        }
+
+        /* Portal Card Dynamic Colors */
+        .card-cv {
+            --accent-color: #0891b2;
+            --accent-rgb: 8, 145, 178;
+        }
+        .card-games {
+            --accent-color: #db2777;
+            --accent-rgb: 219, 39, 119;
+        }
+        .card-solutions {
+            --accent-color: #4f46e5;
+            --accent-rgb: 79, 70, 229;
+        }
+        .card-apps {
+            --accent-color: #d97706;
+            --accent-rgb: 217, 119, 6;
+        }
+
+        /* Left side content wrapper */
+        .card-left-section {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-grow: 1;
+        }
+
+        /* Icon Container */
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 18px;
+            background: rgba(var(--accent-rgb), 0.06);
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            border: 1px solid rgba(var(--accent-rgb), 0.12);
+            flex-shrink: 0;
+            transition: all var(--transition-speed) var(--ease-out);
+        }
+
+        .portal-card:hover .icon-box {
+            background: var(--accent-color);
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(var(--accent-rgb), 0.25);
+            transform: scale(1.08) rotate(3deg);
+        }
+
+        /* Text Content */
+        .card-info {
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 0.35rem;
+            letter-spacing: -0.3px;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .portal-card:hover .card-title {
+            color: var(--accent-color);
+        }
+
+        .card-desc {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.5;
+            max-width: 600px;
+        }
+
+        /* Right side Arrow Action Box */
+        .arrow-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+            transition: all var(--transition-speed) var(--ease-out);
+            flex-shrink: 0;
+        }
+
+        .portal-card:hover .arrow-box {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #ffffff;
+            box-shadow: 0 6px 15px rgba(var(--accent-rgb), 0.25);
+            transform: translateX(4px);
+        }
+
+        /* Hover States for Cards */
+        .portal-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(var(--accent-rgb), 0.2);
+            box-shadow: 0 15px 35px rgba(var(--accent-rgb), 0.08), var(--card-shadow-hover);
+            background: #ffffff;
+        }
+
+        /* Left edge colored border indicator */
+        .portal-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 40%;
+            border-radius: 0 4px 4px 0;
+            background: var(--accent-color);
+            transition: height var(--transition-speed) var(--ease-out);
+        }
+
+        .portal-card:hover::before {
+            height: 70%;
+        }
+
+        /* Footer */
+        .portal-footer {
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.03);
+            z-index: 2;
+        }
+
+        /* Entry & badge animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        /* Mobile Layout */
+        @media (max-width: 768px) {
+            .portal-wrapper {
+                padding: 3rem 1.25rem;
+            }
+
+            .portal-hero h1 {
+                font-size: 2.3rem;
+            }
+
+            .portal-card {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 2rem;
+                gap: 1.5rem;
+            }
+
+            .card-left-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.25rem;
+            }
+
+            .arrow-box {
+                align-self: flex-end;
+            }
+
+            .portal-card::before {
+                left: 50%;
+                top: 0;
+                transform: translateX(-50%);
+                width: 40%;
+                height: 4px;
+                border-radius: 0 0 4px 4px;
+            }
+
+            .portal-card:hover::before {
+                width: 70%;
+                height: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Pastel Ambient Lights -->
+    <div class="ambient-light light-blue"></div>
+    <div class="ambient-light light-pink"></div>
+    <div class="ambient-light light-purple"></div>
+
+    <div class="portal-wrapper">
+        <!-- Hero Header -->
+        <header class="portal-hero">
+            <div class="welcome-badge">
+                <i class="fa-solid fa-heart"></i>
+                <span>Welcome to my workspace</span>
+            </div>
+            <h1>Mifpro<span>Portal</span></h1>
+            <p>Pintu gerbang utama ke seluruh portofolio, solusi digital, game, dan koleksi aplikasi buatan saya.</p>
+        </header>
+
+        <!-- Landscape Portal List -->
+        <main class="portal-list">
+            <!-- Portal CV -->
+            <a href="Cv/index.html" class="portal-card card-cv">
+                <div class="card-left-section">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-file-invoice"></i>
+                    </div>
+                    <div class="card-info">
+                        <h2 class="card-title">Curriculum Vitae</h2>
+                        <p class="card-desc">Portofolio profesional interaktif berisi keahlian, riwayat pekerjaan, dan proyek-proyek yang telah saya selesaikan.</p>
+                    </div>
+                </div>
+                <div class="arrow-box">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Portal Games -->
+            <a href="Games/index.html" class="portal-card card-games">
+                <div class="card-left-section">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </div>
+                    <div class="card-info">
+                        <h2 class="card-title">Mifpro Games</h2>
+                        <p class="card-desc">Jelajahi koleksi mini-games menarik dan interaktif buatan saya langsung di web browser Anda.</p>
+                    </div>
+                </div>
+                <div class="arrow-box">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Portal MifproDigitalSolution -->
+            <a href="MifproDigitalSolution/index.html" class="portal-card card-solutions">
+                <div class="card-left-section">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-cubes"></i>
+                    </div>
+                    <div class="card-info">
+                        <h2 class="card-title">Mifpro Digital Solution</h2>
+                        <p class="card-desc">Layanan profesional dan inovatif untuk pengembangan web, transformasi digital, dan solusi IT bisnis Anda.</p>
+                    </div>
+                </div>
+                <div class="arrow-box">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Portal Apps Directory -->
+            <a href="Apps/index.html" class="portal-card card-apps">
+                <div class="card-left-section">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <div class="card-info">
+                        <h2 class="card-title">Application Hub</h2>
+                        <p class="card-desc">Kumpulan tools, aplikasi utilitas, dan dashboard produktivitas buatan saya yang dikelompokkan dengan rapi.</p>
+                    </div>
+                </div>
+                <div class="arrow-box">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </a>
+        </main>
+    </div>
+
+    <!-- Elegant Footer -->
+    <footer class="portal-footer">
+        <p>&copy; 2026 Mifpro. All rights reserved. Designed with style and excellence.</p>
+    </footer>
+
+    <!-- Entry Staggered Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.portal-card');
+
+            // Entry Staggered Animation
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(15px)';
+                card.style.transition = 'opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out), border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease, background var(--transition-speed) ease';
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 150 + index * 80);
+            });
+        });
+    </script>
+</body>
+</html>

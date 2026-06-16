@@ -1,0 +1,523 @@
+/* CSS Variables for design system */
+:root {
+    --bg-primary: #090b11;
+    --bg-secondary: #121622;
+    --bg-card: rgba(20, 25, 40, 0.65);
+    --border-card: rgba(255, 255, 255, 0.08);
+    --border-card-hover: rgba(255, 255, 255, 0.15);
+    
+    --text-primary: #f3f4f6;
+    --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
+    
+    --accent-default: #6366f1;
+    --accent-default-rgb: 99, 102, 241;
+    
+    --glass-blur: 16px;
+    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --card-shadow-hover: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+    
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+    
+    --transition-speed: 0.3s;
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Light Theme Variables */
+body.light-theme {
+    --bg-primary: #f0f2f5;
+    --bg-secondary: #ffffff;
+    --bg-card: rgba(255, 255, 255, 0.7);
+    --border-card: rgba(0, 0, 0, 0.06);
+    --border-card-hover: rgba(0, 0, 0, 0.12);
+    
+    --text-primary: #1e293b;
+    --text-secondary: #4b5563;
+    --text-muted: #9ca3af;
+    
+    --card-shadow: 0 8px 30px 0 rgba(31, 38, 135, 0.06);
+    --card-shadow-hover: 0 12px 35px 0 rgba(31, 38, 135, 0.12);
+}
+
+/* Base resets */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+/* Background glows for premium look */
+.bg-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(140px);
+    z-index: -1;
+    opacity: 0.15;
+    pointer-events: none;
+    transition: opacity var(--transition-speed) ease;
+}
+
+body.light-theme .bg-glow {
+    opacity: 0.1;
+}
+
+.bg-glow-1 {
+    top: -10%;
+    left: -10%;
+    width: 50vw;
+    height: 50vw;
+    background: radial-gradient(circle, #4f46e5 0%, transparent 70%);
+}
+
+.bg-glow-2 {
+    bottom: -10%;
+    right: -10%;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, #ec4899 0%, transparent 70%);
+}
+
+.bg-glow-3 {
+    top: 40%;
+    left: 35%;
+    width: 30vw;
+    height: 30vw;
+    background: radial-gradient(circle, #06b6d4 0%, transparent 70%);
+}
+
+/* Header style */
+.app-header {
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    background-color: rgba(var(--bg-secondary) == #ffffff ? 255 : 9, 11, 17, 0.6);
+    border-bottom: 1px solid var(--border-card);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: background-color var(--transition-speed) ease;
+}
+
+body.light-theme .app-header {
+    background-color: rgba(255, 255, 255, 0.65);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #4f46e5 0%, #ec4899 100%);
+    color: white;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+}
+
+.logo-text h1 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.4rem;
+    line-height: 1.2;
+    background: linear-gradient(135deg, var(--text-primary) 30%, var(--text-muted) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo-text h1 span {
+    background: linear-gradient(135deg, #4f46e5 0%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-left: 0.15rem;
+}
+
+.logo-text p {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.theme-toggle-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: all var(--transition-speed) ease;
+}
+
+.theme-toggle-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-card-hover);
+    background: var(--bg-secondary);
+}
+
+/* Main Layout */
+.main-content {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    flex-grow: 1;
+}
+
+/* Control Panel (Search and Filter) */
+.control-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.search-bar-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    transition: color var(--transition-speed) ease;
+}
+
+#search-input {
+    width: 100%;
+    padding: 1.1rem 1.5rem 1.1rem 3.2rem;
+    border-radius: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    transition: all var(--transition-speed) ease;
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: var(--accent-default);
+    box-shadow: 0 0 0 3px rgba(var(--accent-default-rgb), 0.2);
+    background-color: var(--bg-secondary);
+}
+
+#search-input:focus + .search-icon {
+    color: var(--accent-default);
+}
+
+.clear-search {
+    position: absolute;
+    right: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: color var(--transition-speed) ease;
+}
+
+.clear-search:hover {
+    color: var(--text-primary);
+}
+
+/* Category Filters */
+.filter-categories {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.filter-btn {
+    padding: 0.6rem 1.3rem;
+    border-radius: 99px;
+    border: 1px solid var(--border-card);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    transition: all var(--transition-speed) ease;
+}
+
+.filter-btn:hover {
+    border-color: var(--border-card-hover);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
+
+.filter-btn.active {
+    background: var(--accent-default);
+    color: white;
+    border-color: var(--accent-default);
+    box-shadow: 0 4px 15px rgba(var(--accent-default-rgb), 0.3);
+}
+
+/* Grid layout for cards */
+.apps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    transition: all var(--transition-speed) ease;
+}
+
+/* Card Styling - DYNAMIC THEME SYSTEM */
+.app-card {
+    border-radius: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    overflow: hidden;
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    box-shadow: var(--card-shadow);
+    transition: transform 0.4s var(--ease-bounce), border-color var(--transition-speed) ease, box-shadow 0.4s ease;
+    height: 100%;
+    position: relative;
+}
+
+/* Beautiful dynamic background hover and glow effects per card */
+.app-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: var(--app-theme);
+    transition: height 0.3s ease;
+}
+
+.app-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    border-color: rgba(var(--app-theme-rgb), 0.3);
+    box-shadow: 0 15px 35px rgba(var(--app-theme-rgb), 0.15), var(--card-shadow-hover);
+}
+
+.app-card:hover::before {
+    height: 8px;
+}
+
+.card-inner {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+/* Card Header */
+.app-header-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.app-icon-container {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    background: rgba(var(--app-theme-rgb), 0.1);
+    color: var(--app-theme);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    border: 1px solid rgba(var(--app-theme-rgb), 0.25);
+    transition: all var(--transition-speed) ease;
+}
+
+.app-card:hover .app-icon-container {
+    background: var(--app-theme);
+    color: white;
+    transform: scale(1.05) rotate(5deg);
+    box-shadow: 0 6px 20px rgba(var(--app-theme-rgb), 0.3);
+}
+
+.app-badge {
+    padding: 0.3rem 0.75rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--app-theme);
+    background: rgba(var(--app-theme-rgb), 0.08);
+    border: 1px solid rgba(var(--app-theme-rgb), 0.15);
+    letter-spacing: 0.3px;
+}
+
+/* Card Body */
+.app-body {
+    flex-grow: 1;
+    margin-bottom: 1.75rem;
+}
+
+.app-title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    transition: color var(--transition-speed) ease;
+}
+
+.app-card:hover .app-title {
+    color: var(--app-theme);
+}
+
+.app-description {
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+}
+
+.app-tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.app-tech-tags span {
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-card);
+    color: var(--text-muted);
+}
+
+body.light-theme .app-tech-tags span {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+/* Card Footer & Launch Button */
+.launch-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 12px;
+    border: 1px solid rgba(var(--app-theme-rgb), 0.2);
+    background: rgba(var(--app-theme-rgb), 0.02);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+}
+
+.app-card:hover .launch-btn {
+    background: var(--app-theme);
+    border-color: var(--app-theme);
+    color: white;
+    box-shadow: 0 4px 15px rgba(var(--app-theme-rgb), 0.35);
+}
+
+.launch-btn i {
+    font-size: 0.8rem;
+    transition: transform var(--transition-speed) ease;
+}
+
+.app-card:hover .launch-btn i {
+    transform: translate(2px, -2px);
+}
+
+/* Empty State Styling */
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-muted);
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: rgba(var(--accent-default-rgb), 0.3);
+}
+
+.empty-state h3 {
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Footer style */
+.app-footer {
+    padding: 2rem;
+    text-align: center;
+    border-top: 1px solid var(--border-card);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .main-content {
+        padding: 2rem 1rem;
+    }
+    
+    .header-container {
+        padding: 1rem;
+    }
+    
+    .logo-text h1 {
+        font-size: 1.2rem;
+    }
+    
+    .control-panel {
+        margin-bottom: 2rem;
+    }
+}
