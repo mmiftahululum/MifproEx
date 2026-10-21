@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,10 @@
     <!-- Primary SEO -->
     <title>Game Portal - Play Free Online Games Anytime</title>
     <meta name="title" content="Game Portal - Play Free Online Games Anytime">
-    <meta name="description" content="Play the best free online games including action, adventure, racing, puzzle, and multiplayer games directly from your browser.">
-    <meta name="keywords" content="game portal, online games, free games, browser games, multiplayer games, action games, puzzle games, racing games">
+    <meta name="description"
+        content="Play the best free online games including action, adventure, racing, puzzle, and multiplayer games directly from your browser.">
+    <meta name="keywords"
+        content="game portal, online games, free games, browser games, multiplayer games, action games, puzzle games, racing games">
     <meta name="author" content="Game Portal">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
@@ -22,7 +25,8 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Game Portal - Play Free Online Games Anytime">
-    <meta property="og:description" content="Discover and play exciting online games for free. Enjoy action, adventure, puzzle, and multiplayer games instantly.">
+    <meta property="og:description"
+        content="Discover and play exciting online games for free. Enjoy action, adventure, puzzle, and multiplayer games instantly.">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
@@ -75,8 +79,22 @@
             z-index: -1;
             opacity: 0.4;
         }
-        .blob-1 { top: -100px; left: -100px; width: 400px; height: 400px; background: #3b82f6; }
-        .blob-2 { bottom: -100px; right: -100px; width: 300px; height: 300px; background: #8b5cf6; }
+
+        .blob-1 {
+            top: -100px;
+            left: -100px;
+            width: 400px;
+            height: 400px;
+            background: #3b82f6;
+        }
+
+        .blob-2 {
+            bottom: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: #8b5cf6;
+        }
 
         header {
             padding: 4rem 2rem 2rem;
@@ -143,7 +161,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         /* Specific Game Icons/Styles */
         .card-image.hitung-cepat {
             background: linear-gradient(135deg, #ef4444 0%, #f59e0b 100%);
@@ -152,7 +170,7 @@
         .card-icon {
             font-size: 4rem;
             color: white;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
             transition: var(--transition);
         }
 
@@ -210,17 +228,25 @@
         }
 
         @media (max-width: 640px) {
-            h1 { font-size: 2.5rem; }
-            .game-grid { grid-template-columns: 1fr; }
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .game-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <div class="bg-blob blob-1"></div>
     <div class="bg-blob blob-2"></div>
 
     <header>
+        <a href="../index.html" class="back-button"
+            style="position:absolute;top:20px;left:20px;padding:8px 12px;background:#fff;color:#000;border-radius:4px;text-decoration:none;">Back</a>
         <h1>Game Portal</h1>
         <p class="subtitle">Select a game to start playing</p>
     </header>
@@ -234,7 +260,8 @@
                 </div>
                 <div class="card-content">
                     <h2 class="game-title">Hitung Cepat</h2>
-                    <p class="game-desc">Test your math skills with this fast-paced calculation game. Race against the clock!</p>
+                    <p class="game-desc">Test your math skills with this fast-paced calculation game. Race against the
+                        clock!</p>
                     <span class="play-btn">Play Now</span>
                 </div>
             </a>
@@ -247,4 +274,5 @@
     </footer>
 
 </body>
+
 </html>
