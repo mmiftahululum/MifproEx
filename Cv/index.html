@@ -772,7 +772,7 @@
               <i class="bi bi-geo-alt flex-shrink-0"></i>
               <div>
                 <h3>Address</h3>
-                <p>Jl. Telaga </a> NO.7 RT.001 RW.001 Kel.Leran, Kec. Manyar, Kab. Gresik, Jawa Timur</p>
+                <p>Jl. Telaga NO.7 RT.001 RW.001 Kel.Leran, Kec. Manyar, Kab. Gresik, Jawa Timur</p>
               </div>
             </div><!-- End Info Item -->
 
@@ -780,7 +780,21 @@
               <i class="bi bi-telephone flex-shrink-0"></i>
               <div>
                 <h3>Call Us</h3>
-                <p>+62 857-5550-8406</p>
+                <p><a href="tel:+6287759752525" class="text-reset text-decoration-none">+62 877-5975-2525</a></p>
+              </div>
+            </div><!-- End Info Item -->
+
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="350">
+              <i class="bi bi-whatsapp flex-shrink-0" style="color: #25D366; background: rgba(37, 211, 102, 0.12);"></i>
+              <div>
+                <h3>Send Message WA</h3>
+                <p><a href="https://wa.me/6287759752525?text=Halo%20Miftahul%20Ulum,%20saya%20menghubungi%20Anda%20melalui%20website%20CV." target="_blank" rel="noopener noreferrer" class="text-reset text-decoration-none">+62 877-5975-2525</a></p>
+                <div class="mt-2">
+                  <a href="https://wa.me/6287759752525?text=Halo%20Miftahul%20Ulum,%20saya%20menghubungi%20Anda%20melalui%20website%20CV." target="_blank" rel="noopener noreferrer" class="btn btn-sm text-white" style="background-color: #25D366; border-radius: 20px; padding: 5px 16px; font-size: 13px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; box-shadow: 0 2px 6px rgba(37, 211, 102, 0.3);">
+                    <span>Chat via WhatsApp</span>
+                    <span style="font-size: 12px;">&rarr;</span>
+                  </a>
+                </div>
               </div>
             </div><!-- End Info Item -->
 
@@ -788,39 +802,70 @@
               <i class="bi bi-envelope flex-shrink-0"></i>
               <div>
                 <h3>Email Us</h3>
-                <p>mifta.ulum@hotmail.com</p>
+                <p><a href="mailto:mifta.ulum@hotmail.com" class="text-reset text-decoration-none">mifta.ulum@hotmail.com</a></p>
               </div>
             </div><!-- End Info Item -->
 
           </div>
 
           <div class="col-lg-8">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up"
+            <form id="contactForm" action="https://formsubmit.co/ajax/mifta.ulum@hotmail.com" method="post" class="php-email-form" data-aos="fade-up"
               data-aos-delay="200">
+              <!-- Honeypot anti-spam bot trap -->
+              <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+              <input type="hidden" name="_template" value="table">
+              <input type="hidden" name="_captcha" value="false">
+
               <div class="row gy-4">
 
                 <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                  <input type="text" name="name" id="contactName" class="form-control" placeholder="Your Name" required="">
                 </div>
 
                 <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                  <input type="email" class="form-control" name="email" id="contactEmail" placeholder="Your Email" required="">
                 </div>
 
                 <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+                  <input type="text" class="form-control" name="subject" id="contactSubject" placeholder="Subject" required="">
                 </div>
 
                 <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+                  <textarea class="form-control" name="message" id="contactMessage" rows="6" placeholder="Message" required=""></textarea>
+                </div>
+
+                <!-- Captcha Security Verification & Anti-Spam -->
+                <div class="col-md-12">
+                  <div class="p-3 rounded" style="background: color-mix(in srgb, var(--surface-color, #f8f9fa), transparent 20%); border: 1px dashed color-mix(in srgb, var(--default-color, #555), transparent 75%);">
+                    <label for="captchaInput" class="form-label d-flex align-items-center justify-content-between mb-2" style="font-size: 14px; font-weight: 600;">
+                      <span><i class="bi bi-shield-check text-success me-1"></i> Security Verification (Captcha)</span>
+                      <small class="text-muted fw-normal" style="font-size: 12px;">Klik gambar / tombol untuk ganti kode</small>
+                    </label>
+                    <div class="row g-2 align-items-center">
+                      <div class="col-auto">
+                        <div style="border-radius: 6px; overflow: hidden; border: 1px solid #ced4da; box-shadow: 0 1px 3px rgba(0,0,0,0.08); display: inline-block; vertical-align: middle;">
+                          <canvas id="captchaCanvas" width="140" height="40" style="display: block; cursor: pointer; user-select: none;" title="Klik untuk refresh kode captcha"></canvas>
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <button type="button" id="reloadCaptcha" class="btn btn-outline-secondary" style="height: 40px; width: 40px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px;" title="Refresh Captcha">
+                          <i class="bi bi-arrow-clockwise" style="font-size: 18px; line-height: 1;"></i>
+                        </button>
+                      </div>
+                      <div class="col">
+                        <input type="text" id="captchaInput" class="form-control" placeholder="Ketik kode di samping" required="" style="height: 40px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;">
+                      </div>
+                    </div>
+                    <div id="captchaFeedback" class="small mt-1 text-danger d-none" style="font-size: 12px; font-weight: 500;"></div>
+                  </div>
                 </div>
 
                 <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
+                  <div class="loading">Mengirim pesan...</div>
                   <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
+                  <div class="sent-message">Pesan Anda berhasil dikirim ke mifta.ulum@hotmail.com. Terima kasih!</div>
 
-                  <button type="submit">Send Message</button>
+                  <button type="submit" id="submitContactBtn">Send Message</button>
                 </div>
 
               </div>
@@ -837,18 +882,18 @@
 
   <footer id="footer" class="footer light-background">
     <div class="container">
-      <h3 class="sitename">Lonely</h3>
-      <p>Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat.</p>
+      <h3 class="sitename">Muhammad Miftahul Ulum</h3>
+      <p>CV for my Journey and my Experience</p>
       <div class="social-links d-flex justify-content-center">
-        <a href=""><i class="bi bi-twitter-x"></i></a>
-        <a href=""><i class="bi bi-facebook"></i></a>
-        <a href=""><i class="bi bi-instagram"></i></a>
-        <a href=""><i class="bi bi-skype"></i></a>
-        <a href=""><i class="bi bi-linkedin"></i></a>
+        <!-- <a href=""><i class="bi bi-twitter-x"></i></a> -->
+        <!-- <a href=""><i class="bi bi-facebook"></i></a> -->
+        <a href="https://www.instagram.com/m_miftahul_ulum/"><i class="bi bi-instagram"></i></a>
+        <!-- <a href=""><i class="bi bi-skype"></i></a> -->
+        <a href="https://www.linkedin.com/in/muhammad-miftahul-ulum"><i class="bi bi-linkedin"></i></a>
       </div>
       <div class="container">
         <div class="copyright">
-          <span>Copyright</span> <strong class="px-1 sitename">Lonely</strong> <span>All Rights Reserved</span>
+          <span>Copyright</span> <strong class="px-1 sitename">Mifpro</strong> <span>All Rights Reserved</span>
         </div>
         <div class="credits">
           <!-- All the links in the footer should remain intact. -->
@@ -871,7 +916,6 @@
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
@@ -881,6 +925,267 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- Contact Form, Captcha & Anti-Spam Script -->
+  <script>
+    (function () {
+      "use strict";
+
+      const contactForm = document.getElementById('contactForm');
+      if (!contactForm) return;
+
+      const canvas = document.getElementById('captchaCanvas');
+      const reloadBtn = document.getElementById('reloadCaptcha');
+      const captchaInput = document.getElementById('captchaInput');
+      const captchaFeedback = document.getElementById('captchaFeedback');
+      const submitBtn = document.getElementById('submitContactBtn');
+      const loadingEl = contactForm.querySelector('.loading');
+      const errorEl = contactForm.querySelector('.error-message');
+      const sentEl = contactForm.querySelector('.sent-message');
+
+      const COOLDOWN_SECONDS = 60;
+      let generatedCaptcha = '';
+      let cooldownTimer = null;
+
+      // Generate Random Captcha
+      function generateCaptcha() {
+        // Distinct characters (avoiding confusing 0/O, 1/I/l)
+        const chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+        let code = '';
+        for (let i = 0; i < 5; i++) {
+          code += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        generatedCaptcha = code;
+
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width;
+        const h = canvas.height;
+
+        // Clear canvas
+        ctx.clearRect(0, 0, w, h);
+
+        // Background
+        ctx.fillStyle = '#eef3f8';
+        ctx.fillRect(0, 0, w, h);
+
+        // Noise lines
+        for (let i = 0; i < 4; i++) {
+          ctx.strokeStyle = `rgba(${Math.floor(Math.random()*120)}, ${Math.floor(Math.random()*120)}, ${Math.floor(Math.random()*120)}, 0.3)`;
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.moveTo(Math.random() * w, Math.random() * h);
+          ctx.lineTo(Math.random() * w, Math.random() * h);
+          ctx.stroke();
+        }
+
+        // Noise dots
+        for (let i = 0; i < 25; i++) {
+          ctx.fillStyle = `rgba(${Math.floor(Math.random()*150)}, ${Math.floor(Math.random()*150)}, ${Math.floor(Math.random()*150)}, 0.35)`;
+          ctx.beginPath();
+          ctx.arc(Math.random() * w, Math.random() * h, 1.2, 0, 2 * Math.PI);
+          ctx.fill();
+        }
+
+        // Draw characters
+        ctx.textBaseline = 'middle';
+        const startX = 14;
+        const spacing = 24;
+        const colors = ['#0f172a', '#1e40af', '#047857', '#b91c1c', '#6d28d9', '#c2410c'];
+
+        for (let i = 0; i < code.length; i++) {
+          ctx.save();
+          const x = startX + i * spacing;
+          const y = h / 2 + (Math.random() * 4 - 2);
+          const angle = (Math.random() * 24 - 12) * Math.PI / 180;
+
+          ctx.translate(x, y);
+          ctx.rotate(angle);
+          ctx.font = 'bold 21px "Segoe UI", Tahoma, sans-serif';
+          ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+          ctx.fillText(code[i], 0, 0);
+          ctx.restore();
+        }
+      }
+
+      function showError(msg) {
+        if (loadingEl) loadingEl.classList.remove('d-block');
+        if (sentEl) sentEl.classList.remove('d-block');
+        if (errorEl) {
+          errorEl.innerHTML = msg;
+          errorEl.classList.add('d-block');
+        }
+      }
+
+      function startCooldown(seconds) {
+        let remaining = seconds;
+        submitBtn.disabled = true;
+        submitBtn.textContent = `Tunggu (${remaining}s)`;
+
+        if (cooldownTimer) clearInterval(cooldownTimer);
+        cooldownTimer = setInterval(() => {
+          remaining--;
+          if (remaining <= 0) {
+            clearInterval(cooldownTimer);
+            cooldownTimer = null;
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+          } else {
+            submitBtn.textContent = `Tunggu (${remaining}s)`;
+          }
+        }, 1000);
+      }
+
+      // Check existing cooldown on load
+      function checkCooldown() {
+        const last = localStorage.getItem('mifpro_cv_last_submit');
+        if (last) {
+          const elapsed = (Date.now() - parseInt(last, 10)) / 1000;
+          if (elapsed < COOLDOWN_SECONDS) {
+            startCooldown(Math.ceil(COOLDOWN_SECONDS - elapsed));
+          }
+        }
+      }
+
+      // Refresh Captcha triggers
+      if (reloadBtn) {
+        reloadBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          generateCaptcha();
+          captchaInput.value = '';
+          captchaInput.classList.remove('is-invalid');
+          if (captchaFeedback) captchaFeedback.classList.add('d-none');
+        });
+      }
+
+      if (canvas) {
+        canvas.addEventListener('click', function () {
+          generateCaptcha();
+          captchaInput.value = '';
+          captchaInput.classList.remove('is-invalid');
+          if (captchaFeedback) captchaFeedback.classList.add('d-none');
+        });
+      }
+
+      // Initialize Captcha & Cooldown
+      generateCaptcha();
+      checkCooldown();
+
+      // Handle Form Submit
+      contactForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // 1. Check Anti-Spam Cooldown
+        const last = localStorage.getItem('mifpro_cv_last_submit');
+        if (last) {
+          const elapsed = (Date.now() - parseInt(last, 10)) / 1000;
+          if (elapsed < COOLDOWN_SECONDS) {
+            const waitTime = Math.ceil(COOLDOWN_SECONDS - elapsed);
+            showError(`Mohon tunggu ${waitTime} detik sebelum mengirim pesan lagi.`);
+            return;
+          }
+        }
+
+        // 2. Check Honeypot
+        const honey = contactForm.querySelector('input[name="_honey"]');
+        if (honey && honey.value) {
+          return; // Silent abort for spam bots
+        }
+
+        // 3. Check Captcha
+        const userCode = captchaInput.value.trim().toUpperCase();
+        if (!userCode || userCode !== generatedCaptcha) {
+          showError('Kode captcha tidak cocok! Silakan periksa kembali kode keamanan di samping.');
+          captchaInput.classList.add('is-invalid');
+          if (captchaFeedback) {
+            captchaFeedback.textContent = 'Kode captcha salah. Kode baru telah dibuat.';
+            captchaFeedback.classList.remove('d-none');
+          }
+          captchaInput.value = '';
+          generateCaptcha();
+          captchaInput.focus();
+          return;
+        }
+
+        captchaInput.classList.remove('is-invalid');
+        if (captchaFeedback) captchaFeedback.classList.add('d-none');
+
+        // 4. UI State: Loading
+        submitBtn.disabled = true;
+        if (errorEl) errorEl.classList.remove('d-block');
+        if (sentEl) sentEl.classList.remove('d-block');
+        if (loadingEl) loadingEl.classList.add('d-block');
+
+        const nameVal = document.getElementById('contactName').value.trim();
+        const emailVal = document.getElementById('contactEmail').value.trim();
+        const subjectVal = document.getElementById('contactSubject').value.trim();
+        const messageVal = document.getElementById('contactMessage').value.trim();
+
+        const payload = {
+          name: nameVal,
+          email: emailVal,
+          subject: subjectVal,
+          message: messageVal,
+          _subject: `Pesan Baru CV: ${subjectVal} (dari ${nameVal})`,
+          _template: 'table',
+          _captcha: 'false'
+        };
+
+        // Send via FormSubmit AJAX to mifta.ulum@hotmail.com
+        fetch('https://formsubmit.co/ajax/mifta.ulum@hotmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error('Gagal mengirim via API (Status: ' + response.status + ')');
+        })
+        .then(data => {
+          handleSuccess();
+        })
+        .catch(err => {
+          // Fallback to local PHP endpoint forms/contact.php
+          fetch('forms/contact.php', {
+            method: 'POST',
+            body: new FormData(contactForm)
+          })
+          .then(res => res.text())
+          .then(txt => {
+            if (txt.trim() === 'OK') {
+              handleSuccess();
+            } else {
+              throw new Error(txt || 'Pengiriman gagal.');
+            }
+          })
+          .catch(fallbackErr => {
+            if (loadingEl) loadingEl.classList.remove('d-block');
+            showError('Gagal mengirim pesan: ' + (fallbackErr.message || err.message));
+            submitBtn.disabled = false;
+            generateCaptcha();
+          });
+        });
+
+        function handleSuccess() {
+          if (loadingEl) loadingEl.classList.remove('d-block');
+          if (sentEl) {
+            sentEl.innerHTML = 'Pesan Anda berhasil dikirim ke <strong>mifta.ulum@hotmail.com</strong>. Terima kasih!';
+            sentEl.classList.add('d-block');
+          }
+          contactForm.reset();
+          localStorage.setItem('mifpro_cv_last_submit', Date.now().toString());
+          generateCaptcha();
+          startCooldown(COOLDOWN_SECONDS);
+        }
+      });
+
+    })();
+  </script>
 
 </body>
 
