@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kertas Kerja - Aplikasi Task Management & Kolaborasi Tim | Mifpro Apps</title>
+
+    <!-- Meta SEO -->
+    <meta name="description"
+        content="Kertas Kerja adalah aplikasi task management dan koordinasi tim cerdas buatan Muhammad Miftahul Ulum (Mifpro) untuk mengelola lembar kerja, pendelegasian tugas, tracking progres, dan riwayat pekerjaan.">
+    <meta name="keywords"
+        content="Kertas Kerja, Task Management, Manajemen Tugas, Kolaborasi Tim, Productivity Apps, Laravel, PHP, Muhammad Miftahul Ulum, Mifpro Apps">
+    <meta name="author" content="Muhammad Miftahul Ulum">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mifpro.com/Apps/kertas-kerja.html">
+    <meta property="og:title" content="Kertas Kerja - Aplikasi Task Management & Kolaborasi Tim">
+    <meta property="og:description"
+        content="Kelola tugas dan lembar kerja tim secara terstruktur, transparan, dan akuntabel tanpa ada pekerjaan yang tertinggal.">
+    <meta property="og:image" content="https://mifpro.com/img/og-image-apps.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="ico-app.ico">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-primary: #090b11;
+            --bg-secondary: #121622;
+            --bg-card: rgba(20, 25, 40, 0.72);
+            --border-card: rgba(255, 255, 255, 0.08);
+            --border-card-hover: rgba(6, 182, 212, 0.35);
+
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+
+            --app-theme: #06b6d4;
+            --app-theme-rgb: 6, 182, 212;
+            --app-theme-gradient: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+
+            --glass-blur: 18px;
+            --card-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.45);
+            --card-shadow-hover: 0 18px 48px 0 rgba(6, 182, 212, 0.25);
+
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+
+            --transition-speed: 0.3s;
+            --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body.light-theme {
+            --bg-primary: #f0f4f8;
+            --bg-secondary: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.85);
+            --border-card: rgba(0, 0, 0, 0.08);
+            --border-card-hover: rgba(6, 182, 212, 0.45);
+
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+
+            --card-shadow: 0 10px 30px rgba(6, 182, 212, 0.08);
+            --card-shadow-hover: 0 16px 40px rgba(6, 182, 212, 0.18);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            line-height: 1.6;
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+
+        /* Ambient Glows */
+        .bg-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: -1;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        body.light-theme .bg-glow {
+            opacity: 0.12;
+        }
+
+        .bg-glow-1 {
+            top: -5%;
+            left: -5%;
+            width: 45vw;
+            height: 45vw;
+            background: radial-gradient(circle, #06b6d4 0%, transparent 70%);
+        }
+
+        .bg-glow-2 {
+            top: 40%;
+            right: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+        }
+
+        .bg-glow-3 {
+            bottom: -5%;
+            left: 25%;
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, #0891b2 0%, transparent 70%);
+        }
+
+        /* Header / Navbar */
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(9, 11, 17, 0.8);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border-bottom: 1px solid var(--border-card);
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+
+        body.light-theme .app-header {
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--app-theme-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 16px rgba(var(--app-theme-rgb), 0.35);
+        }
+
+        .logo-text h1 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .logo-text h1 span {
+            color: var(--app-theme);
+        }
+
+        .logo-text p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .btn-back-hub {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-card);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .btn-back-hub:hover {
+            color: var(--text-primary);
+            background: rgba(var(--app-theme-rgb), 0.1);
+            border-color: rgba(var(--app-theme-rgb), 0.3);
+            transform: translateY(-2px);
+        }
+
+        .theme-toggle-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-card);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .theme-toggle-btn:hover {
+            background: rgba(var(--app-theme-rgb), 0.15);
+            border-color: rgba(var(--app-theme-rgb), 0.4);
+            transform: scale(1.05);
+        }
+
+        .btn-header-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.25rem;
+            border-radius: 10px;
+            background: var(--app-theme-gradient);
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(var(--app-theme-rgb), 0.3);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .btn-header-cta:hover {
+            box-shadow: 0 6px 20px rgba(var(--app-theme-rgb), 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 4.5rem 0 3.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            background: rgba(var(--app-theme-rgb), 0.1);
+            border: 1px solid rgba(var(--app-theme-rgb), 0.25);
+            color: var(--app-theme);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.3rem, 5vw, 3.8rem);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 1.25rem;
+            letter-spacing: -1px;
+        }
+
+        .hero-title span {
+            background: var(--app-theme-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--text-secondary);
+            max-width: 780px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            margin-bottom: 3.5rem;
+        }
+
+        .btn-primary-hero {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.95rem 2rem;
+            border-radius: 14px;
+            background: var(--app-theme-gradient);
+            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(var(--app-theme-rgb), 0.35);
+            transition: all var(--transition-speed) var(--ease-bounce);
+        }
+
+        .btn-primary-hero:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 32px rgba(var(--app-theme-rgb), 0.5);
+        }
+
+        .btn-secondary-hero {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.95rem 1.85rem;
+            border-radius: 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            color: var(--text-primary);
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            backdrop-filter: blur(var(--glass-blur));
+            transition: all var(--transition-speed) ease;
+        }
+
+        .btn-secondary-hero:hover {
+            background: rgba(var(--app-theme-rgb), 0.1);
+            border-color: rgba(var(--app-theme-rgb), 0.35);
+            transform: translateY(-3px);
+            color: var(--app-theme);
+        }
+
+        /* Mockup Preview Card */
+        .preview-wrapper {
+            position: relative;
+            max-width: 960px;
+            margin: 0 auto;
+            border-radius: 20px;
+            padding: 1px;
+            background: linear-gradient(180deg, rgba(var(--app-theme-rgb), 0.5) 0%, rgba(255, 255, 255, 0.05) 100%);
+            box-shadow: var(--card-shadow);
+        }
+
+        .preview-container {
+            background: var(--bg-card);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-card);
+        }
+
+        .preview-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.85rem 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid var(--border-card);
+        }
+
+        body.light-theme .preview-topbar {
+            background: rgba(0, 0, 0, 0.03);
+        }
+
+        .window-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-red {
+            background: #ef4444;
+        }
+
+        .dot-yellow {
+            background: #f59e0b;
+        }
+
+        .dot-green {
+            background: #10b981;
+        }
+
+        .preview-url {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.25rem 1rem;
+            border-radius: 20px;
+        }
+
+        .preview-body {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            text-align: left;
+        }
+
+        .mock-column {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-card);
+            border-radius: 14px;
+            padding: 1.25rem;
+        }
+
+        .mock-column-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .mock-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-card);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 0.85rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .mock-tag {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.55rem;
+            border-radius: 6px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .tag-urgent {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+        }
+
+        .tag-progress {
+            background: rgba(6, 182, 212, 0.15);
+            color: #06b6d4;
+        }
+
+        .tag-done {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+        }
+
+        .mock-card h4 {
+            font-size: 0.92rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .mock-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .mock-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-card);
+            padding-top: 0.5rem;
+        }
+
+        /* Problem vs Solution */
+        .comparison-section {
+            padding: 5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3.5rem;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.5px;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .comparison-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: 20px;
+            padding: 2.25rem;
+            border: 1px solid var(--border-card);
+            transition: transform var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+
+        .comparison-card.problem {
+            border-top: 4px solid #ef4444;
+        }
+
+        .comparison-card.solution {
+            border-top: 4px solid var(--app-theme);
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .comparison-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .comparison-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .problem .comparison-icon {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+        }
+
+        .solution .comparison-icon {
+            background: rgba(var(--app-theme-rgb), 0.15);
+            color: var(--app-theme);
+        }
+
+        .comparison-card-header h3 {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 800;
+        }
+
+        .comparison-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.15rem;
+        }
+
+        .comparison-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .comparison-list li i {
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+
+        .problem .comparison-list li i {
+            color: #ef4444;
+        }
+
+        .solution .comparison-list li i {
+            color: var(--app-theme);
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 5rem 0;
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.75rem;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all var(--transition-speed) var(--ease-out);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            border-color: var(--border-card-hover);
+            transform: translateY(-6px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .feature-icon-wrapper {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: rgba(var(--app-theme-rgb), 0.12);
+            color: var(--app-theme);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(var(--app-theme-rgb), 0.2);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .feature-card:hover .feature-icon-wrapper {
+            background: var(--app-theme);
+            color: #ffffff;
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.65rem;
+        }
+
+        .feature-card p {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Workflow Steps */
+        .workflow-section {
+            padding: 5rem 0;
+        }
+
+        .steps-timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            position: relative;
+        }
+
+        .step-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 18px;
+            padding: 1.75rem;
+            position: relative;
+        }
+
+        .step-number {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: rgba(var(--app-theme-rgb), 0.3);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-card p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Tech Stack */
+        .tech-section {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .tech-tags-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.85rem;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 2rem auto 0;
+        }
+
+        .tech-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .tech-badge:hover {
+            border-color: rgba(var(--app-theme-rgb), 0.5);
+            background: rgba(var(--app-theme-rgb), 0.08);
+            transform: translateY(-2px);
+        }
+
+        /* CTA Banner */
+        .cta-banner-section {
+            padding: 5rem 0;
+        }
+
+        .cta-banner-box {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%);
+            border: 1px solid rgba(var(--app-theme-rgb), 0.3);
+            border-radius: 24px;
+            padding: 3.5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+
+        .cta-banner-box h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 4vw, 2.7rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .cta-banner-box p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 0 auto 2.25rem;
+        }
+
+        /* Footer */
+        .app-footer {
+            border-top: 1px solid var(--border-card);
+            padding: 2.5rem 0;
+            background: rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--app-theme);
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 3rem 0 2rem;
+            }
+
+            .header-container {
+                padding: 0.85rem 1rem;
+            }
+
+            .btn-header-cta {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background Decor -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+
+    <!-- Header Navbar -->
+    <header class="app-header">
+        <div class="header-container">
+            <a href="index.html" class="nav-brand">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-list-check"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Kertas<span>Kerja</span></h1>
+                    <p>Task Management & Work Coordination</p>
+                </div>
+            </a>
+
+            <div class="nav-actions">
+                <a href="index.html" class="btn-back-hub" title="Kembali ke Direktori Aplikasi">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Apps Hub</span>
+                </a>
+
+                <div class="theme-toggle-btn" id="theme-toggle" title="Ubah Mode Tema">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+
+                <a href="https://kertaskerja.mifpro.com" target="_blank" class="btn-header-cta">
+                    <span>Buka Aplikasi</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="badge-pill">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Productivity & Task Management</span>
+                </div>
+
+                <h1 class="hero-title">
+                    Sering Kehilangan Jejak Pekerjaan?<br>
+                    Kelola Semua dengan <span>Kertas Kerja</span>.
+                </h1>
+
+                <p class="hero-subtitle">
+                    Aplikasi manajemen tugas dan koordinasi tim modern yang dirancang khusus untuk mengubah instruksi
+                    kerja yang berserakan menjadi alur kerja yang terstruktur, transparan, dan akuntabel.
+                </p>
+
+                <div class="hero-cta-group">
+                    <a href="https://kertaskerja.mifpro.com" target="_blank" class="btn-primary-hero">
+                        <i class="fa-solid fa-rocket"></i>
+                        <span>Buka Aplikasi Live</span>
+                    </a>
+
+                    <a href="https://mifpro.com/sering-kehilangan-jejak-pekerjaan-aplikasi-kertas-kerja-ini-punya-cara-berbeda-mengelola-tugas-tim/"
+                        target="_blank" class="btn-secondary-hero">
+                        <i class="fa-solid fa-book-open-reader"></i>
+                        <span>Baca Artikel Blog</span>
+                    </a>
+                </div>
+
+                <!-- Mockup Interactive Visual -->
+                <div class="preview-wrapper">
+                    <div class="preview-container">
+                        <div class="preview-topbar">
+                            <div class="window-dots">
+                                <span class="dot dot-red"></span>
+                                <span class="dot dot-yellow"></span>
+                                <span class="dot dot-green"></span>
+                            </div>
+                            <span class="preview-url"><i class="fa-solid fa-lock"></i> https://kertaskerja.mifpro.com/board</span>
+                            <div></div>
+                        </div>
+
+                        <div class="preview-body">
+                            <!-- Column 1 -->
+                            <div class="mock-column">
+                                <div class="mock-column-title">
+                                    <span>To-Do (Antrean)</span>
+                                    <span>2</span>
+                                </div>
+                                <div class="mock-card">
+                                    <span class="mock-tag tag-urgent">High Priority</span>
+                                    <h4>Finalisasi Modul Pembayaran</h4>
+                                    <p>Integrasi webhook callback dan verifikasi token keamanan API.</p>
+                                    <div class="mock-card-footer">
+                                        <span><i class="fa-regular fa-clock"></i> Besok, 17:00</span>
+                                        <span><i class="fa-regular fa-user"></i> Ahmad R.</span>
+                                    </div>
+                                </div>
+                                <div class="mock-card">
+                                    <span class="mock-tag tag-progress">Normal</span>
+                                    <h4>Review Desain Mockup UI</h4>
+                                    <p>Sinkronisasi feedback klien pada revisi wireframe v2.</p>
+                                    <div class="mock-card-footer">
+                                        <span><i class="fa-regular fa-clock"></i> 3 Hari</span>
+                                        <span><i class="fa-regular fa-user"></i> Sarah D.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Column 2 -->
+                            <div class="mock-column">
+                                <div class="mock-column-title">
+                                    <span>In Progress (Dikerjakan)</span>
+                                    <span>1</span>
+                                </div>
+                                <div class="mock-card" style="border-left: 3px solid #06b6d4;">
+                                    <span class="mock-tag tag-progress">In Progress</span>
+                                    <h4>Optimasi Query SQL Report</h4>
+                                    <p>Refactor query reporting transaksi bulanan agar beban server lebih ringan.</p>
+                                    <div class="mock-card-footer">
+                                        <span><i class="fa-solid fa-spinner fa-spin"></i> Running</span>
+                                        <span><i class="fa-regular fa-user"></i> Ulum M.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Column 3 -->
+                            <div class="mock-column">
+                                <div class="mock-column-title">
+                                    <span>Completed (Selesai)</span>
+                                    <span>3</span>
+                                </div>
+                                <div class="mock-card" style="opacity: 0.85;">
+                                    <span class="mock-tag tag-done">Done</span>
+                                    <h4>Deployment Server Staging</h4>
+                                    <p>Setup konfigurasi Nginx dan environment PHP 8.3.</p>
+                                    <div class="mock-card-footer">
+                                        <span><i class="fa-solid fa-check-circle" style="color: #10b981;"></i> Selesai</span>
+                                        <span><i class="fa-regular fa-user"></i> DevOps</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem vs Solution Section -->
+        <section class="comparison-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Kenapa Kertas Kerja Dibutuhkan?</h2>
+                    <p>Bandingkan cara lama koordinasi tugas dengan alur kerja modern berbasis lembar kerja digital.</p>
+                </div>
+
+                <div class="comparison-grid">
+                    <!-- Problem Card -->
+                    <div class="comparison-card problem">
+                        <div class="comparison-card-header">
+                            <div class="comparison-icon">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                            <h3>Cara Lama (Chat & Catatan Acak)</h3>
+                        </div>
+                        <ul class="comparison-list">
+                            <li>
+                                <i class="fa-solid fa-xmark"></i>
+                                <span>Instruksi tugas tenggelam di antara ribuan percakapan grup WhatsApp / Telegram.</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-xmark"></i>
+                                <span>Tidak jelas siapa penanggung jawab (PIC) utama untuk setiap pekerjaan.</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-xmark"></i>
+                                <span>Status progres sulit dipantau tanpa harus bolak-balik menanyakan manual.</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-xmark"></i>
+                                <span>Dokumen lampiran dan bukti penyelesaian tercecer di berbagai platform.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Solution Card -->
+                    <div class="comparison-card solution">
+                        <div class="comparison-card-header">
+                            <div class="comparison-icon">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <h3>Solusi Kertas Kerja</h3>
+                        </div>
+                        <ul class="comparison-list">
+                            <li>
+                                <i class="fa-solid fa-check"></i>
+                                <span>Setiap tugas memiliki lembar kerja digital terpusat dengan deskripsi dan checklist detail.</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-check"></i>
+                                <span>Pendelegasian tugas eksplisit dengan PIC, tanggal target, dan bobot prioritas jelas.</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-check"></i>
+                                <span>Visualisasi status kerja real-time yang dapat diakses seluruh tim kapan pun.</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-check"></i>
+                                <span>Riwayat perubahan status dan dokumen hasil kerja tersimpan rapi sebagai audit trail.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Fitur Utama & Keunggulan</h2>
+                    <p>Dirancang ringkas namun berdaya guna tinggi untuk meningkatkan produktivitas tim Anda.</p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fa-solid fa-table-columns"></i>
+                        </div>
+                        <h3>Digital Worksheet System</h3>
+                        <p>Mengelompokkan tugas berdasarkan nama proyek atau departemen dalam lembar kerja modular yang intuitif.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fa-solid fa-user-tag"></i>
+                        </div>
+                        <h3>Delegasi Tugas & PIC Jelas</h3>
+                        <p>Tunjuk penanggung jawab pekerjaan langsung dengan deadline yang terpampang jelas di dashboard masing-masing.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <h3>Tracking Status Real-Time</h3>
+                        <p>Perbarui status tugas dari antrean (To Do), tahap pengerjaan (In Progress), hingga verifikasi (Done) secara transparan.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </div>
+                        <h3>Audit Trail & Catatan Kendala</h3>
+                        <p>Simpan riwayat perubahan tugas dan catatan diskusi kendala lapangan agar tim selalu sinkron.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fa-solid fa-paperclip"></i>
+                        </div>
+                        <h3>Lampiran Bukti Penyelesaian</h3>
+                        <p>Sertakan screenshot, file dokumen, atau tautan hasil kerja langsung pada lembar tugas untuk memudahkan verifikasi.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3>Aman & Terstruktur</h3>
+                        <p>Didukung arsitektur backend Laravel yang andal dan database terenkripsi untuk keamanan data pekerjaan Anda.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workflow Steps -->
+        <section class="workflow-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Cara Kerja Kertas Kerja</h2>
+                    <p>4 Langkah mudah mentransformasikan cara tim Anda bekerja setiap hari.</p>
+                </div>
+
+                <div class="steps-timeline">
+                    <div class="step-card">
+                        <div class="step-number">01</div>
+                        <h3>Buat Kertas Kerja</h3>
+                        <p>Buka lembar kerja baru untuk proyek, sprint mingguan, atau operasional harian tim Anda.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">02</div>
+                        <h3>Tentukan Tugas & PIC</h3>
+                        <p>Pecah proyek ke dalam sub-tugas spesifik, tetapkan PIC yang bertanggung jawab dan tenggat waktu.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">03</div>
+                        <h3>Eksekusi & Update</h3>
+                        <p>PIC memperbarui progres secara bertahap dan melampirkan catatan jika terdapat kendala kerja.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">04</div>
+                        <h3>Review & Finalisasi</h3>
+                        <p>Supervisor mengecek hasil kerja yang dilaporkan lalu memvalidasi status penyelesaian tugas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack -->
+        <section class="tech-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Teknologi Di Balik Aplikasi</h2>
+                    <p>Dibangun menggunakan stack teknologi web modern yang teruji ketangguhan dan skalabilitasnya.</p>
+                </div>
+
+                <div class="tech-tags-wrapper">
+                    <span class="tech-badge"><i class="fa-brands fa-laravel" style="color: #ef4444;"></i> Laravel Framework</span>
+                    <span class="tech-badge"><i class="fa-brands fa-php" style="color: #777bb4;"></i> PHP 8.x</span>
+                    <span class="tech-badge"><i class="fa-solid fa-database" style="color: #00758f;"></i> MySQL Database</span>
+                    <span class="tech-badge"><i class="fa-brands fa-js" style="color: #f7df1e;"></i> JavaScript (ES6+)</span>
+                    <span class="tech-badge"><i class="fa-brands fa-css3-alt" style="color: #264de4;"></i> Responsive CSS & UI Components</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Banner -->
+        <section class="cta-banner-section">
+            <div class="container">
+                <div class="cta-banner-box">
+                    <h2>Mulai Tingkatkan Akuntabilitas Tim Anda</h2>
+                    <p>Jangan biarkan tugas terabaikan lagi. Gunakan Kertas Kerja sekarang dan rasakan efisiensi koordinasi tim yang jauh lebih baik.</p>
+                    <div class="hero-cta-group" style="margin-bottom: 0;">
+                        <a href="https://kertaskerja.mifpro.com" target="_blank" class="btn-primary-hero">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <span>Buka Kertas Kerja Live</span>
+                        </a>
+                        <a href="index.html" class="btn-secondary-hero">
+                            <i class="fa-solid fa-layer-group"></i>
+                            <span>Jelajahi Aplikasi Lainnya</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Apps Directory</a>
+                <span>•</span>
+                <a href="log-api.html">Log API</a>
+                <span>•</span>
+                <a href="../Cv/index.html">Curriculum Vitae</a>
+                <span>•</span>
+                <a href="../Games/index.html">Game Portal</a>
+                <span>•</span>
+                <a href="../index.html">Mifpro Portal</a>
+            </div>
+            <p>&copy; 2026 Mifpro. All rights reserved. Developed with passion by Muhammad Miftahul Ulum.</p>
+        </div>
+    </footer>
+
+    <!-- Theme Switcher Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+
+            if (currentTheme === 'light') {
+                document.body.classList.add('light-theme');
+                themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+            } else {
+                document.body.classList.remove('light-theme');
+                themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+            }
+
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('light-theme');
+                const isLight = document.body.classList.contains('light-theme');
+                themeToggle.innerHTML = isLight ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+                localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            });
+        });
+    </script>
+</body>
+
+</html>
+

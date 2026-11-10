@@ -9,11 +9,12 @@ Selamat datang di repositori **Mifpro Project Portal**. Proyek ini merupakan eko
 - [Arsitektur & Struktur Proyek](#-arsitektur--struktur-proyek)
 - [Kebutuhan Sistem (Prerequisites)](#-kebutuhan-sistem-prerequisites)
 - [Cara Menjalankan Semua Program](#-cara-menjalankan-semua-program)
-  - [Opsi 1: PHP Built-in Server + Router (Paling Direkomendasikan ⭐)](#opsi-1-php-built-in-server--router-paling-direkomendasikan-)
-  - [Opsi 2: PHP Built-in Server Standar](#opsi-2-php-built-in-server-standar)
-  - [Opsi 3: XAMPP / Laragon / WAMP (Apache)](#opsi-3-xampp--laragon--wamp-apache)
-  - [Opsi 4: VS Code Extension "Live Server"](#opsi-4-vs-code-extension-live-server)
-  - [Opsi 5: Python HTTP Server](#opsi-5-python-http-server)
+  - [Opsi 1: Klik Ganda `start-server.bat` (1-Click Launch Paling Praktis ⚡)](#opsi-1-klik-ganda-start-serverbat-1-click-launch-paling-praktis-)
+  - [Opsi 2: PHP Built-in Server + Router (Manual Terminal ⭐)](#opsi-2-php-built-in-server--router-manual-terminal-)
+  - [Opsi 3: PHP Built-in Server Standar](#opsi-3-php-built-in-server-standar)
+  - [Opsi 4: XAMPP / Laragon / WAMP (Apache)](#opsi-4-xampp--laragon--wamp-apache)
+  - [Opsi 5: VS Code Extension "Live Server"](#opsi-5-vs-code-extension-live-server)
+  - [Opsi 6: Python HTTP Server](#opsi-6-python-http-server)
 - [Daftar URL Akses Lokal](#-daftar-url-akses-lokal)
 - [Detail Setiap Modul](#-detail-setiap-modul)
 - [Troubleshooting & Tips](#-troubleshooting--tips)
@@ -32,6 +33,8 @@ private_mifproEx/
 │
 ├── Apps/                           # 📱 Mifpro Application Hub
 │   ├── index.html                  # Direktori katalog aplikasi dengan filter & search
+│   ├── kertas-kerja.html           # 📄 Landing page aplikasi Kertas Kerja (Task Management)
+│   ├── log-api.html                # 📄 Landing page aplikasi Log API (Request-Response Inspector)
 │   ├── styles.css                  # Desain tema (Light / Dark mode support)
 │   ├── script.js                   # Logika filter kategori, pencarian, dan theme switcher
 │   └── ico-app.ico                 # Favicon modul Apps
@@ -170,6 +173,8 @@ Saat server berjalan di port `8000` (menggunakan Opsi 1 dengan `router.php`), An
 |---|---|---|
 | **Mifpro Portal (Home)** | `http://localhost:8000/` | Halaman gerbang utama penghubung seluruh proyek |
 | **Mifpro Apps Directory** | `http://localhost:8000/portal/Apps/` atau `/Apps/` | Direktori aplikasi web, showcase utilitas & filter kategori |
+| **Landing Page Kertas Kerja** | `http://localhost:8000/Apps/kertas-kerja.html` | Penjelasan mendalam aplikasi Task Management & Kolaborasi |
+| **Landing Page Log API** | `http://localhost:8000/Apps/log-api.html` | Penjelasan mendalam aplikasi API Monitoring & Inspector |
 | **Curriculum Vitae (CV)** | `http://localhost:8000/portal/Cv/` atau `/Cv/` | Portofolio profesional interaktif & form kontak |
 | **Mifpro Games** | `http://localhost:8000/portal/Games/` atau `/Games/` | Katalog portal game browser |
 | **Game Hitung Cepat** | `http://localhost:8000/Games/hitungcepat/` | Permainan asah otak hitung matematika (PWA) |
@@ -185,10 +190,12 @@ Saat server berjalan di port `8000` (menggunakan Opsi 1 dengan `router.php`), An
 - Menghubungkan ke Blog resmi, CV, Solusi Digital, Game, dan Application Hub.
 
 ### 2. Application Hub (`/Apps/`)
-- Katalog aplikasi web produktivitas dan utilitas.
+- Katalog aplikasi web produktivitas dan utilitas buatan Muhammad Miftahul Ulum.
 - **Fitur Pencarian Real-time**: Mengetik kata kunci langsung menyaring judul, deskripsi, atau tag teknologi.
 - **Filter Kategori**: Menyaring berdasarkan *Semua*, *Produktivitas*, *Game*, *Portofolio*, atau *Utilitas*.
 - **Dark / Light Theme Toggle**: Mode tema gelap dan terang dengan penyimpanan preferensi di `localStorage`.
+- **Landing Page Kertas Kerja (`Apps/kertas-kerja.html`)**: Halaman presentasi detail aplikasi task management, mencakup perbandingan alur kerja lama vs baru, fitur audit trail, simulasi mockup papan tugas, dan integrasi live app `kertaskerja.mifpro.com`.
+- **Landing Page Log API (`Apps/log-api.html`)**: Halaman presentasi detail aplikasi monitoring request-response API, mencakup simulasi visual inspector payload JSON, latency monitor, 1-click cURL export, dan integrasi live app `log.mifpro.com`.
 
 ### 3. Curriculum Vitae & Portfolio (`/Cv/`)
 - Menampilkan profil lengkap, ringkasan keahlian teknis (*Skill Bars*), linimasa riwayat kerja & pendidikan, layanan, portofolio masonry, dan kontak.
