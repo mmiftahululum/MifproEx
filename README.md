@@ -197,7 +197,7 @@ Saat server berjalan di port `8000` (menggunakan Opsi 1 dengan `router.php`), An
 - **Filter Kategori**: Menyaring berdasarkan *Semua*, *Produktivitas*, *Finansial*, *Game*, *Portofolio*, atau *Utilitas*.
 - **Dark / Light Theme Toggle**: Mode tema gelap dan terang dengan penyimpanan preferensi di `localStorage`.
 - **Landing Page DepositoHunter (`Apps/deposito-hunter.html`)**: Halaman presentasi detail platform perbandingan suku bunga deposito perbankan Indonesia (Bank Konvensional, Bank Digital, & BPR). Dilengkapi dengan kalkulator simulasi imbal hasil (bunga kotor, pajak final 20%, bunga bersih), indikator penjaminan Lembaga Penjamin Simpanan (LPS / Prinsip 3T), panduan perbankan, dan integrasi live app `depositohunter.mifpro.com`.
-- **Landing Page Kertas Kerja (`Apps/kertas-kerja.html`)**: Halaman presentasi detail aplikasi task management, mencakup perbandingan alur kerja lama vs baru, fitur audit trail, simulasi mockup papan tugas, dan integrasi live app `kertaskerja.mifpro.com`.
+- **Landing Page Kertas Kerja (`Apps/kertas-kerja.html`)**: Halaman presentasi detail aplikasi task management, mencakup perbandingan alur kerja lama vs baru, fitur audit trail, simulasi mockup papan tugas, dan integrasi live app `task.mifpro.com`.
 - **Landing Page Log API (`Apps/log-api.html`)**: Halaman presentasi detail aplikasi monitoring request-response API, mencakup simulasi visual inspector payload JSON, latency monitor, 1-click cURL export, dan integrasi live app `log.mifpro.com`.
 
 ### 3. Curriculum Vitae & Portfolio (`/Cv/`)
