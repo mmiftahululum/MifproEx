@@ -33,6 +33,7 @@ private_mifproEx/
 │
 ├── Apps/                           # 📱 Mifpro Application Hub
 │   ├── index.html                  # Direktori katalog aplikasi dengan filter & search
+│   ├── depositohunter.html         # 📄 Landing page aplikasi DepositoHunter (Banking Rate Comparator & Calculator)
 │   ├── kertas-kerja.html           # 📄 Landing page aplikasi Kertas Kerja (Task Management)
 │   ├── log-api.html                # 📄 Landing page aplikasi Log API (Request-Response Inspector)
 │   ├── styles.css                  # Desain tema (Light / Dark mode support)
@@ -173,6 +174,7 @@ Saat server berjalan di port `8000` (menggunakan Opsi 1 dengan `router.php`), An
 |---|---|---|
 | **Mifpro Portal (Home)** | `http://localhost:8000/` | Halaman gerbang utama penghubung seluruh proyek |
 | **Mifpro Apps Directory** | `http://localhost:8000/portal/Apps/` atau `/Apps/` | Direktori aplikasi web, showcase utilitas & filter kategori |
+| **Landing Page DepositoHunter** | `http://localhost:8000/Apps/depositohunter.html` | Penjelasan mendalam aplikasi perbandingan bunga deposito & simulasi LPS |
 | **Landing Page Kertas Kerja** | `http://localhost:8000/Apps/kertas-kerja.html` | Penjelasan mendalam aplikasi Task Management & Kolaborasi |
 | **Landing Page Log API** | `http://localhost:8000/Apps/log-api.html` | Penjelasan mendalam aplikasi API Monitoring & Inspector |
 | **Curriculum Vitae (CV)** | `http://localhost:8000/portal/Cv/` atau `/Cv/` | Portofolio profesional interaktif & form kontak |
@@ -192,8 +194,9 @@ Saat server berjalan di port `8000` (menggunakan Opsi 1 dengan `router.php`), An
 ### 2. Application Hub (`/Apps/`)
 - Katalog aplikasi web produktivitas dan utilitas buatan Muhammad Miftahul Ulum.
 - **Fitur Pencarian Real-time**: Mengetik kata kunci langsung menyaring judul, deskripsi, atau tag teknologi.
-- **Filter Kategori**: Menyaring berdasarkan *Semua*, *Produktivitas*, *Game*, *Portofolio*, atau *Utilitas*.
+- **Filter Kategori**: Menyaring berdasarkan *Semua*, *Produktivitas*, *Finansial*, *Game*, *Portofolio*, atau *Utilitas*.
 - **Dark / Light Theme Toggle**: Mode tema gelap dan terang dengan penyimpanan preferensi di `localStorage`.
+- **Landing Page DepositoHunter (`Apps/depositohunter.html`)**: Halaman presentasi detail platform perbandingan suku bunga deposito perbankan Indonesia (Bank Konvensional, Bank Digital, & BPR). Dilengkapi dengan kalkulator simulasi imbal hasil (bunga kotor, pajak final 20%, bunga bersih), indikator penjaminan Lembaga Penjamin Simpanan (LPS / Prinsip 3T), panduan perbankan, dan integrasi live app `depositohunter.mifpro.com`.
 - **Landing Page Kertas Kerja (`Apps/kertas-kerja.html`)**: Halaman presentasi detail aplikasi task management, mencakup perbandingan alur kerja lama vs baru, fitur audit trail, simulasi mockup papan tugas, dan integrasi live app `kertaskerja.mifpro.com`.
 - **Landing Page Log API (`Apps/log-api.html`)**: Halaman presentasi detail aplikasi monitoring request-response API, mencakup simulasi visual inspector payload JSON, latency monitor, 1-click cURL export, dan integrasi live app `log.mifpro.com`.
 
@@ -208,6 +211,7 @@ Saat server berjalan di port `8000` (menggunakan Opsi 1 dengan `router.php`), An
 
 ### 5. Mifpro Digital Solution (`/Mifpro-Digital-Solution/`)
 - Showcase layanan agensi teknologi informasi, jasa pembuatan website kustom, integrasi API, dan sistem ERP.
+- **Dukungan 2 Bahasa (Bilingual ID / EN)**: Dilengkapi tombol pengalih bahasa instan (**ID / EN**) pada navigation bar dengan penyimpanan otomatis di `localStorage` dan dukungan parameter query (`?lang=en` atau `?lang=id`).
 - Menggunakan Bootstrap responsive grid, jQuery animations, pricing package table, dan Google Fonts yang elegan.
 
 ---

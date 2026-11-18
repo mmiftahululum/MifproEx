@@ -1,0 +1,2167 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DepositoHunter MIFPRO - Perbandingan Bunga Deposito & Simulasi Imbal Hasil Bank | Mifpro Apps</title>
+
+    <!-- Meta SEO -->
+    <meta name="description"
+        content="DepositoHunter MIFPRO adalah platform perbandingan suku bunga deposito perbankan Indonesia (Bank Konvensional, Bank Digital, & BPR). Bandingkan bunga, simulasikan pajak 20%, dan pastikan keamanan simpanan sesuai batas penjaminan LPS.">
+    <meta name="keywords"
+        content="DepositoHunter, DepositoHunter MIFPRO, Perbandingan Bunga Deposito, Suku Bunga Deposito Bank, BankRate ID, Kalkulator Deposito, Bunga Deposito Bank Digital, Penjaminan LPS, Muhammad Miftahul Ulum, Mifpro Apps">
+    <meta name="author" content="Muhammad Miftahul Ulum">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mifpro.com/Apps/depositohunter.html">
+    <meta property="og:title" content="DepositoHunter MIFPRO - Perbandingan Bunga Deposito & Simulasi Imbal Hasil Bank">
+    <meta property="og:description"
+        content="Bunga deposito bank berbeda-beda, jangan asal simpan uang! Bandingkan suku bunga deposito, simulasikan imbal hasil bersih, dan cek status penjaminan LPS di DepositoHunter MIFPRO.">
+    <meta property="og:image" content="https://mifpro.com/img/og-image-apps.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://mifpro.com/Apps/depositohunter.html">
+    <meta property="twitter:title" content="DepositoHunter MIFPRO - Perbandingan Bunga Deposito & Simulasi Imbal Hasil">
+    <meta property="twitter:description"
+        content="Platform informasi dan kalkulator simulasi deposito perbankan Indonesia terlengkap dari Mifpro.">
+    <meta property="twitter:image" content="https://mifpro.com/img/og-image-apps.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="ico-app.ico">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-primary: #090b11;
+            --bg-secondary: #121622;
+            --bg-card: rgba(20, 25, 40, 0.72);
+            --border-card: rgba(255, 255, 255, 0.08);
+            --border-card-hover: rgba(16, 185, 129, 0.35);
+
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+
+            --app-theme: #059669;
+            --app-theme-light: #10b981;
+            --app-theme-rgb: 16, 185, 129;
+            --app-theme-gradient: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+            --app-theme-gradient-subtle: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.05) 100%);
+
+            --accent-gold: #f59e0b;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-emerald: #10b981;
+            --accent-danger: #ef4444;
+
+            --code-bg: #0d141b;
+            --code-border: rgba(16, 185, 129, 0.2);
+
+            --glass-blur: 18px;
+            --card-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.45);
+            --card-shadow-hover: 0 18px 48px 0 rgba(16, 185, 129, 0.22);
+
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            --transition-speed: 0.3s;
+            --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body.light-theme {
+            --bg-primary: #f2f7f5;
+            --bg-secondary: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.88);
+            --border-card: rgba(0, 0, 0, 0.08);
+            --border-card-hover: rgba(16, 185, 129, 0.45);
+
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+
+            --code-bg: #f8fafc;
+            --code-border: rgba(16, 185, 129, 0.25);
+
+            --card-shadow: 0 10px 30px rgba(16, 185, 129, 0.08);
+            --card-shadow-hover: 0 16px 40px rgba(16, 185, 129, 0.18);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            line-height: 1.6;
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+
+        /* Ambient Glows */
+        .bg-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: -1;
+            opacity: 0.18;
+            pointer-events: none;
+        }
+
+        body.light-theme .bg-glow {
+            opacity: 0.12;
+        }
+
+        .bg-glow-1 {
+            top: -5%;
+            left: -5%;
+            width: 45vw;
+            height: 45vw;
+            background: radial-gradient(circle, #10b981 0%, transparent 70%);
+        }
+
+        .bg-glow-2 {
+            top: 35%;
+            right: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, #059669 0%, transparent 70%);
+        }
+
+        .bg-glow-3 {
+            bottom: -5%;
+            left: 20%;
+            width: 42vw;
+            height: 42vw;
+            background: radial-gradient(circle, #047857 0%, transparent 70%);
+        }
+
+        /* Header Navbar */
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(9, 11, 17, 0.82);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border-bottom: 1px solid var(--border-card);
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+
+        body.light-theme .app-header {
+            background: rgba(255, 255, 255, 0.88);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--app-theme-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 16px rgba(var(--app-theme-rgb), 0.35);
+        }
+
+        .logo-text h1 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .logo-text h1 span {
+            color: var(--app-theme-light);
+        }
+
+        .logo-text p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .btn-back-hub {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-card);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .btn-back-hub:hover {
+            color: var(--text-primary);
+            background: rgba(var(--app-theme-rgb), 0.1);
+            border-color: rgba(var(--app-theme-rgb), 0.3);
+            transform: translateY(-2px);
+        }
+
+        .theme-toggle-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-card);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .theme-toggle-btn:hover {
+            background: rgba(var(--app-theme-rgb), 0.15);
+            border-color: rgba(var(--app-theme-rgb), 0.4);
+            transform: scale(1.05);
+        }
+
+        .btn-header-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.25rem;
+            border-radius: 10px;
+            background: var(--app-theme-gradient);
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(var(--app-theme-rgb), 0.3);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .btn-header-cta:hover {
+            box-shadow: 0 6px 20px rgba(var(--app-theme-rgb), 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 4.5rem 0 3.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1.1rem;
+            border-radius: 30px;
+            background: rgba(var(--app-theme-rgb), 0.12);
+            border: 1px solid rgba(var(--app-theme-rgb), 0.35);
+            color: var(--app-theme-light);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 1.25rem;
+            letter-spacing: -1px;
+        }
+
+        .hero-title span {
+            background: var(--app-theme-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--text-secondary);
+            max-width: 820px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            margin-bottom: 3.5rem;
+        }
+
+        .btn-primary-hero {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.95rem 2rem;
+            border-radius: 14px;
+            background: var(--app-theme-gradient);
+            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(var(--app-theme-rgb), 0.35);
+            transition: all var(--transition-speed) var(--ease-bounce);
+        }
+
+        .btn-primary-hero:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 32px rgba(var(--app-theme-rgb), 0.5);
+        }
+
+        .btn-secondary-hero {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.95rem 1.85rem;
+            border-radius: 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            color: var(--text-primary);
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            backdrop-filter: blur(var(--glass-blur));
+            transition: all var(--transition-speed) ease;
+        }
+
+        .btn-secondary-hero:hover {
+            background: rgba(var(--app-theme-rgb), 0.1);
+            border-color: rgba(var(--app-theme-rgb), 0.35);
+            transform: translateY(-3px);
+            color: var(--app-theme-light);
+        }
+
+        /* Mockup Visual Wrapper */
+        .preview-wrapper {
+            position: relative;
+            max-width: 1040px;
+            margin: 0 auto;
+            border-radius: 20px;
+            padding: 1px;
+            background: linear-gradient(180deg, rgba(var(--app-theme-rgb), 0.6) 0%, rgba(255, 255, 255, 0.05) 100%);
+            box-shadow: var(--card-shadow);
+        }
+
+        .preview-container {
+            background: var(--code-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-card);
+        }
+
+        .preview-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.85rem 1.5rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid var(--border-card);
+        }
+
+        body.light-theme .preview-topbar {
+            background: #e2e8f0;
+        }
+
+        .window-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-red {
+            background: #ef4444;
+        }
+
+        .dot-yellow {
+            background: #f59e0b;
+        }
+
+        .dot-green {
+            background: #10b981;
+        }
+
+        .preview-url {
+            font-size: 0.78rem;
+            color: #94a3b8;
+            font-family: var(--font-mono);
+            background: rgba(255, 255, 255, 0.06);
+            padding: 0.25rem 1rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        body.light-theme .preview-url {
+            background: rgba(0, 0, 0, 0.05);
+            color: #475569;
+        }
+
+        .preview-body {
+            padding: 1.75rem;
+            text-align: left;
+        }
+
+        /* Filter Chips bar inside mockup */
+        .mockup-filter-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .mockup-chips {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .mockup-chip {
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-card);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mockup-chip.active {
+            background: rgba(var(--app-theme-rgb), 0.2);
+            border-color: rgba(var(--app-theme-rgb), 0.5);
+            color: var(--app-theme-light);
+        }
+
+        .lps-status-pill {
+            font-size: 0.75rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #34d399;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Mockup Split (Grid: Bank Comparison vs Live Simulator) */
+        .mockup-split {
+            display: grid;
+            grid-template-columns: 1.35fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .mockup-split {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Bank Rate List Box */
+        .bank-rate-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .bank-card-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-card);
+            border-radius: 14px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transition: all 0.25s ease;
+        }
+
+        .bank-card-item:hover {
+            border-color: rgba(var(--app-theme-rgb), 0.35);
+            background: rgba(var(--app-theme-rgb), 0.04);
+            transform: translateX(3px);
+        }
+
+        .bank-card-item.featured {
+            border-color: rgba(16, 185, 129, 0.3);
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%);
+        }
+
+        .bank-info-col {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .bank-icon-badge {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--app-theme-light);
+            flex-shrink: 0;
+        }
+
+        .bank-meta h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .bank-meta p {
+            font-size: 0.76rem;
+            color: var(--text-secondary);
+        }
+
+        .bank-rate-col {
+            text-align: right;
+        }
+
+        .rate-val {
+            font-family: var(--font-mono);
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--app-theme-light);
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .rate-badge-safe {
+            font-size: 0.68rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .rate-badge-warning {
+            font-size: 0.68rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        /* Live Calculator Widget */
+        .calculator-widget {
+            background: rgba(10, 16, 25, 0.85);
+            border: 1px solid rgba(var(--app-theme-rgb), 0.25);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        body.light-theme .calculator-widget {
+            background: #ffffff;
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .calc-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 0.85rem;
+            border-bottom: 1px solid var(--border-card);
+        }
+
+        .calc-header h4 {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .calc-header h4 i {
+            color: var(--app-theme-light);
+        }
+
+        .calc-tag {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            background: rgba(var(--app-theme-rgb), 0.15);
+            color: var(--app-theme-light);
+            font-weight: 700;
+        }
+
+        .calc-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .calc-input-group label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .calc-input-control {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .calc-input-control span.prefix {
+            position: absolute;
+            left: 1rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        .calc-input-control input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-card);
+            border-radius: 10px;
+            padding: 0.65rem 1rem 0.65rem 2.8rem;
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            font-weight: 700;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        body.light-theme .calc-input-control input {
+            background: #f1f5f9;
+        }
+
+        .calc-input-control input:focus {
+            border-color: var(--app-theme-light);
+            background: rgba(var(--app-theme-rgb), 0.05);
+        }
+
+        .calc-tenor-pills {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.4rem;
+        }
+
+        .calc-tenor-pill {
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.45rem 0.2rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-card);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .calc-tenor-pill.active {
+            background: var(--app-theme-gradient);
+            color: #ffffff;
+            border-color: transparent;
+        }
+
+        /* Result Box inside widget */
+        .calc-result-box {
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .calc-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .calc-row span.val {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .calc-row.highlight {
+            padding-top: 0.5rem;
+            border-top: 1px dashed rgba(16, 185, 129, 0.3);
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--app-theme-light);
+        }
+
+        .calc-row.highlight span.val {
+            color: var(--app-theme-light);
+            font-size: 1.1rem;
+        }
+
+        /* Comparison Section */
+        .comparison-section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-header p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1040px;
+            margin: 0 auto;
+        }
+
+        .comparison-card {
+            border-radius: 20px;
+            padding: 2.25rem;
+            border: 1px solid var(--border-card);
+            background: var(--bg-card);
+            backdrop-filter: blur(var(--glass-blur));
+            box-shadow: var(--card-shadow);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .comparison-card.problem {
+            border-top: 4px solid var(--accent-danger);
+        }
+
+        .comparison-card.solution {
+            border-top: 4px solid var(--app-theme-light);
+            background: var(--app-theme-gradient-subtle);
+        }
+
+        .comparison-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .comparison-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            flex-shrink: 0;
+        }
+
+        .comparison-card.problem .comparison-icon {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+        }
+
+        .comparison-card.solution .comparison-icon {
+            background: rgba(16, 185, 129, 0.18);
+            color: var(--app-theme-light);
+        }
+
+        .comparison-card-header h3 {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        .comparison-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+        }
+
+        .comparison-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .comparison-list li i {
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+
+        .comparison-card.problem .comparison-list li i {
+            color: #ef4444;
+        }
+
+        .comparison-card.solution .comparison-list li i {
+            color: var(--app-theme-light);
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 5rem 0;
+            background: rgba(255, 255, 255, 0.015);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.75rem;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 18px;
+            padding: 2rem;
+            transition: all var(--transition-speed) ease;
+            backdrop-filter: blur(var(--glass-blur));
+        }
+
+        .feature-card:hover {
+            border-color: var(--border-card-hover);
+            transform: translateY(-4px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .feature-icon-wrapper {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: rgba(var(--app-theme-rgb), 0.12);
+            border: 1px solid rgba(var(--app-theme-rgb), 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--app-theme-light);
+            margin-bottom: 1.25rem;
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        /* LPS Education Banner Section */
+        .lps-section {
+            padding: 4.5rem 0;
+        }
+
+        .lps-banner-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.05) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .lps-header {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .lps-badge-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: var(--app-theme-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            box-shadow: 0 8px 24px rgba(var(--app-theme-rgb), 0.3);
+        }
+
+        .lps-title-group h3 {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .lps-title-group p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .lps-pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .lps-pillar-card {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border-card);
+            border-radius: 14px;
+            padding: 1.5rem;
+        }
+
+        body.light-theme .lps-pillar-card {
+            background: #ffffff;
+        }
+
+        .lps-pillar-card .pillar-tag {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: var(--app-theme-light);
+            margin-bottom: 0.4rem;
+        }
+
+        .lps-pillar-card h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .lps-pillar-card p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .lps-limit-notice {
+            margin-top: 2rem;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.92rem;
+            color: #fde68a;
+        }
+
+        body.light-theme .lps-limit-notice {
+            color: #92400e;
+        }
+
+        .lps-limit-notice i {
+            font-size: 1.4rem;
+            color: #f59e0b;
+            flex-shrink: 0;
+        }
+
+        /* Bank Types Comparison Table / Cards */
+        .bank-types-section {
+            padding: 5rem 0;
+            background: rgba(255, 255, 255, 0.015);
+        }
+
+        .bank-types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.75rem;
+        }
+
+        .type-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 18px;
+            padding: 2.25rem 2rem;
+            transition: all var(--transition-speed) ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .type-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(var(--app-theme-rgb), 0.35);
+        }
+
+        .type-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 1.25rem;
+        }
+
+        .type-card.digital .type-badge {
+            background: rgba(139, 92, 246, 0.2);
+            color: #c084fc;
+        }
+
+        .type-card.conventional .type-badge {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+
+        .type-card.bpr .type-badge {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+        }
+
+        .type-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+        }
+
+        .rate-range-box {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .rate-range-box span.lbl {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .rate-range-box span.val {
+            font-family: var(--font-mono);
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--app-theme-light);
+        }
+
+        .type-features-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        .type-features-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .type-features-list li i {
+            color: var(--app-theme-light);
+            font-size: 0.8rem;
+        }
+
+        /* Workflow Steps */
+        .workflow-section {
+            padding: 5rem 0;
+        }
+
+        .steps-timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            position: relative;
+        }
+
+        .step-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 18px;
+            padding: 2rem 1.75rem;
+            position: relative;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(var(--app-theme-rgb), 0.35);
+        }
+
+        .step-number {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: rgba(var(--app-theme-rgb), 0.3);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .step-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.65rem;
+            color: var(--text-primary);
+        }
+
+        .step-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Tech Stack */
+        .tech-section {
+            padding: 4.5rem 0;
+            background: rgba(255, 255, 255, 0.015);
+        }
+
+        .tech-tags-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .tech-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.75rem 1.4rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 14px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            box-shadow: var(--card-shadow);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .tech-badge:hover {
+            border-color: rgba(var(--app-theme-rgb), 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 5rem 0;
+        }
+
+        .faq-accordion {
+            max-width: 860px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: all 0.25s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(var(--app-theme-rgb), 0.3);
+        }
+
+        .faq-question {
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            user-select: none;
+        }
+
+        .faq-question i {
+            color: var(--app-theme-light);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.35s ease;
+            padding: 0 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 0 1.5rem 1.25rem;
+        }
+
+        /* CTA Banner */
+        .cta-banner-section {
+            padding: 5rem 0 6rem;
+        }
+
+        .cta-banner-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.22) 0%, rgba(5, 150, 105, 0.08) 100%);
+            border: 1px solid rgba(var(--app-theme-rgb), 0.35);
+            border-radius: 24px;
+            padding: 3.5rem 2rem;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-banner-box h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .cta-banner-box p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 680px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .app-footer {
+            background: rgba(9, 11, 17, 0.95);
+            border-top: 1px solid var(--border-card);
+            padding: 2.5rem 0;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+        }
+
+        body.light-theme .app-footer {
+            background: #ffffff;
+        }
+
+        .footer-links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--app-theme-light);
+        }
+
+        .footer-links span {
+            color: var(--border-card);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Ambient Lighting Glows -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+
+    <!-- Header Navbar -->
+    <header class="app-header">
+        <div class="header-container">
+            <a href="index.html" class="nav-brand">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-piggy-bank"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Deposito<span>Hunter</span></h1>
+                    <p>BankRate ID by Mifpro</p>
+                </div>
+            </a>
+
+            <div class="nav-actions">
+                <a href="index.html" class="btn-back-hub">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Apps Directory</span>
+                </a>
+
+                <div class="theme-toggle-btn" id="theme-toggle" title="Ubah Tema Tampilan">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+
+                <a href="https://depositohunter.mifpro.com" target="_blank" class="btn-header-cta">
+                    <span>Buka Aplikasi</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="badge-pill">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                    <span>BankRate ID & Financial Comparator</span>
+                </div>
+
+                <h1 class="hero-title">
+                    Bunga Deposito Bank Berbeda-beda,<br>
+                    <span>Jangan Asal Simpan Uang!</span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    Platform informasi dan perbandingan suku bunga deposito perbankan Indonesia (Bank Konvensional, Bank Digital, & BPR). Temukan bunga paling kompetitif, simulasikan pajak PPh final 20%, dan pastikan simpanan memenuhi batas penjaminan LPS.
+                </p>
+
+                <div class="hero-cta-group">
+                    <a href="https://depositohunter.mifpro.com" target="_blank" class="btn-primary-hero">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        <span>Buka DepositoHunter Live</span>
+                    </a>
+
+                    <a href="https://mifpro.com/depositohunter-mifpro-perbandingan-bunga-deposito/"
+                        target="_blank" class="btn-secondary-hero">
+                        <i class="fa-solid fa-book-open-reader"></i>
+                        <span>Baca Artikel Pembahasan</span>
+                    </a>
+                </div>
+
+                <!-- Live Banking Mockup & Interactive Calculator -->
+                <div class="preview-wrapper">
+                    <div class="preview-container">
+                        <div class="preview-topbar">
+                            <div class="window-dots">
+                                <span class="dot dot-red"></span>
+                                <span class="dot dot-yellow"></span>
+                                <span class="dot dot-green"></span>
+                            </div>
+                            <span class="preview-url">
+                                <i class="fa-solid fa-shield-halved"></i>
+                                https://depositohunter.mifpro.com/bankrate-id/comparator
+                            </span>
+                            <div class="lps-status-pill">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>LPS Compliant</span>
+                            </div>
+                        </div>
+
+                        <div class="preview-body">
+                            <!-- Filter Bar Mockup -->
+                            <div class="mockup-filter-bar">
+                                <div class="mockup-chips">
+                                    <span class="mockup-chip active" id="filter-all">Semua Kategori</span>
+                                    <span class="mockup-chip" id="filter-digital">Bank Digital</span>
+                                    <span class="mockup-chip" id="filter-conventional">Bank Konvensional</span>
+                                    <span class="mockup-chip" id="filter-bpr">BPR Pilihan</span>
+                                </div>
+                                <span style="font-size: 0.78rem; color: var(--text-secondary);">
+                                    <i class="fa-solid fa-clock-rotate-left"></i> Update Berkala
+                                </span>
+                            </div>
+
+                            <!-- Mockup Split: Left (Rates Board) & Right (Interactive Calculator) -->
+                            <div class="mockup-split">
+                                <!-- Left: Rate Comparison List -->
+                                <div class="bank-rate-list" id="bank-list-container">
+                                    <!-- Bank 1: High Yield Digital -->
+                                    <div class="bank-card-item featured" data-bank-type="digital">
+                                        <div class="bank-info-col">
+                                            <div class="bank-icon-badge" style="color: #a855f7;">
+                                                <i class="fa-solid fa-bolt"></i>
+                                            </div>
+                                            <div class="bank-meta">
+                                                <h4>Bank Digital Premium</h4>
+                                                <p>Tenor 6 - 12 Bulan • Min. Rp1.000.000</p>
+                                            </div>
+                                        </div>
+                                        <div class="bank-rate-col">
+                                            <div class="rate-val">7.25% <span style="font-size: 0.75rem; font-weight: 500;">p.a.</span></div>
+                                            <span class="rate-badge-warning" title="Bunga di atas batas penjaminan LPS">
+                                                <i class="fa-solid fa-triangle-exclamation"></i> Di Atas LPS
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Bank 2: Standard Digital Bank (LPS Match) -->
+                                    <div class="bank-card-item" data-bank-type="digital">
+                                        <div class="bank-info-col">
+                                            <div class="bank-icon-badge" style="color: #06b6d4;">
+                                                <i class="fa-solid fa-mobile-screen-button"></i>
+                                            </div>
+                                            <div class="bank-meta">
+                                                <h4>Bank Digital Nasional</h4>
+                                                <p>Tenor 1 - 12 Bulan • Min. Rp1.000.000</p>
+                                            </div>
+                                        </div>
+                                        <div class="bank-rate-col">
+                                            <div class="rate-val">5.50% <span style="font-size: 0.75rem; font-weight: 500;">p.a.</span></div>
+                                            <span class="rate-badge-warning">
+                                                <i class="fa-solid fa-circle-info"></i> Suku Bunga Khusus
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Bank 3: Conventional / BUMN -->
+                                    <div class="bank-card-item" data-bank-type="conventional">
+                                        <div class="bank-info-col">
+                                            <div class="bank-icon-badge" style="color: #3b82f6;">
+                                                <i class="fa-solid fa-building-columns"></i>
+                                            </div>
+                                            <div class="bank-meta">
+                                                <h4>Bank Konvensional / BUMN</h4>
+                                                <p>Tenor 1, 3, 6, 12 Bulan • Min. Rp10.000.000</p>
+                                            </div>
+                                        </div>
+                                        <div class="bank-rate-col">
+                                            <div class="rate-val">3.75% <span style="font-size: 0.75rem; font-weight: 500;">p.a.</span></div>
+                                            <span class="rate-badge-safe">
+                                                <i class="fa-solid fa-circle-check"></i> 100% Dijamin LPS
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Bank 4: BPR Pilihan -->
+                                    <div class="bank-card-item" data-bank-type="bpr">
+                                        <div class="bank-info-col">
+                                            <div class="bank-icon-badge" style="color: #10b981;">
+                                                <i class="fa-solid fa-landmark"></i>
+                                            </div>
+                                            <div class="bank-meta">
+                                                <h4>BPR Perekonomian Rakyat</h4>
+                                                <p>Tenor 6 - 12 Bulan • Min. Rp5.000.000</p>
+                                            </div>
+                                        </div>
+                                        <div class="bank-rate-col">
+                                            <div class="rate-val">6.75% <span style="font-size: 0.75rem; font-weight: 500;">p.a.</span></div>
+                                            <span class="rate-badge-safe">
+                                                <i class="fa-solid fa-circle-check"></i> Dijamin LPS BPR
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Right: Interactive Live Simulation Widget -->
+                                <div class="calculator-widget">
+                                    <div class="calc-header">
+                                        <h4><i class="fa-solid fa-calculator"></i> Simulasi Deposito Real-Time</h4>
+                                        <span class="calc-tag">Pajak PPh 20%</span>
+                                    </div>
+
+                                    <!-- Input Nominal -->
+                                    <div class="calc-input-group">
+                                        <label for="calc-principal">Nominal Deposito</label>
+                                        <div class="calc-input-control">
+                                            <span class="prefix">Rp</span>
+                                            <input type="number" id="calc-principal" value="50000000" step="1000000" min="1000000">
+                                        </div>
+                                    </div>
+
+                                    <!-- Tenor Selection -->
+                                    <div class="calc-input-group">
+                                        <label>Jangka Waktu (Tenor)</label>
+                                        <div class="calc-tenor-pills">
+                                            <div class="calc-tenor-pill" data-months="1">1 Bulan</div>
+                                            <div class="calc-tenor-pill" data-months="3">3 Bulan</div>
+                                            <div class="calc-tenor-pill" data-months="6">6 Bulan</div>
+                                            <div class="calc-tenor-pill active" data-months="12">12 Bulan</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Input Suku Bunga -->
+                                    <div class="calc-input-group">
+                                        <label for="calc-rate">Suku Bunga Pertahun (% p.a.)</label>
+                                        <div class="calc-input-control">
+                                            <span class="prefix"><i class="fa-solid fa-percent" style="font-size: 0.8rem;"></i></span>
+                                            <input type="number" id="calc-rate" value="6.00" step="0.25" min="1" max="15">
+                                        </div>
+                                    </div>
+
+                                    <!-- Result Card -->
+                                    <div class="calc-result-box">
+                                        <div class="calc-row">
+                                            <span>Estimasi Bunga Kotor:</span>
+                                            <span class="val" id="res-gross">Rp 3.000.000</span>
+                                        </div>
+                                        <div class="calc-row">
+                                            <span>Pajak Final 20% (PPh):</span>
+                                            <span class="val" id="res-tax" style="color: #ef4444;">-Rp 600.000</span>
+                                        </div>
+                                        <div class="calc-row highlight">
+                                            <span>Bunga Bersih (Net Yield):</span>
+                                            <span class="val" id="res-net">Rp 2.400.000</span>
+                                        </div>
+                                        <div class="calc-row" style="margin-top: 0.25rem;">
+                                            <span>Total Saldo Akhir:</span>
+                                            <span class="val" id="res-total" style="font-weight: 800;">Rp 52.400.000</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem vs Solution Section -->
+        <section class="comparison-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Kenapa DepositoHunter Dibutuhkan?</h2>
+                    <p>Menyimpan uang tanpa riset perbandingan bisa membuat Anda kehilangan potensi keuntungan jutaan rupiah serta risiko di luar penjaminan LPS.</p>
+                </div>
+
+                <div class="comparison-grid">
+                    <!-- Problem Card -->
+                    <div class="comparison-card problem">
+                        <div class="comparison-card-header">
+                            <div class="comparison-icon">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                            <h3>Kebiasaan Menyimpan Uang Tanpa Perbandingan</h3>
+                        </div>
+                        <ul class="comparison-list">
+                            <li>
+                                <i class="fa-solid fa-xmark"></i>
+                                <span>Langsung menyimpan di bank biasa tanpa tahu bank lain menawarkan bunga lebih tinggi hingga 3% - 4% p.a.</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-xmark"></i>
+                                <span>Membuka website puluhan bank satu per satu sangat melelahkan, membingungkan, dan membuang waktu.</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-xmark"></i>
+                                <span>Tergiur bunga deposito selangit tanpa mengecek apakah bunga tersebut melebihi batas penjaminan LPS.</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-xmark"></i>
+                                <span>Mengabaikan potongan pajak final 20% sehingga ekspektasi imbal hasil jauh berbeda dari kenyataan.</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-xmark"></i>
+                                <span>Tidak mengetahui syarat nominal minimum penempatan dan batasan penalti pencairan sebelum jatuh tempo.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Solution Card -->
+                    <div class="comparison-card solution">
+                        <div class="comparison-card-header">
+                            <div class="comparison-icon">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <h3>Solusi Cerdas DepositoHunter MIFPRO</h3>
+                        </div>
+                        <ul class="comparison-list">
+                            <li>
+                                <i class="fa-solid fa-check"></i>
+                                <span>Rangkuman komparasi suku bunga terpadu dari bank konvensional, bank digital, dan BPR dalam satu layar.</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-check"></i>
+                                <span>Filter pencarian fleksibel berdasarkan nominal modal (mulai Rp1 juta), pilihan tenor, dan status penjaminan.</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-check"></i>
+                                <span>Kalkulator simulasi otomatis untuk menghitung bunga kotor, potongan pajak 20%, dan bunga bersih real-time.</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-check"></i>
+                                <span>Informasi status penjaminan LPS dan edukasi Prinsip 3T untuk memastikan keamanan aset simpanan Anda.</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-check"></i>
+                                <span>Platform informasi independen yang transparan dengan tautan langsung menuju kanal verifikasi resmi perbankan.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Fitur Unggulan DepositoHunter</h2>
+                    <p>Instrumen komparasi lengkap untuk membantu Anda membuat keputusan finansial yang tepat, bijak, dan aman.</p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </div>
+                        <h3>Multi-Bank Rate Aggregator</h3>
+                        <p>Mengumpulkan informasi suku bunga dari berbagai kelompok perbankan di Indonesia (Bank BUMN, Bank Swasta, Bank Digital, hingga BPR pilihan).</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fa-solid fa-sliders"></i>
+                        </div>
+                        <h3>Filter Kebutuhan Finansial</h3>
+                        <p>Sesuaikan pencarian produk berdasarkan kemampuan dana penempatan (Rp1 jt, Rp5 jt, ratusan juta), tenor fleksibel, dan kriteria penjaminan.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fa-solid fa-calculator"></i>
+                        </div>
+                        <h3>Kalkulator Imbal Hasil Bersih</h3>
+                        <p>Simulasikan estimasi bunga kotor, potongan pajak penghasilan final 20%, dan keuntungan bersih yang akan diterima pada akhir periode secara presisi.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3>Indikator Penjaminan LPS</h3>
+                        <p>Membantu Anda mengetahui apakah penawaran suku bunga masih dalam koridor batas penjaminan LPS (Lembaga Penjamin Simpanan) atau bunga khusus.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <h3>Perbandingan Objektif & Netral</h3>
+                        <p>Menampilkan data secara transparan tanpa mengistimewakan bank tertentu, sehingga nasabah dapat memilih secara independen sesuai profil risiko.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </div>
+                        <h3>Tautan Kanal Resmi Bank</h3>
+                        <p>Menyediakan tautan resmi untuk memeriksa syarat dan ketentuan mutakhir langsung di website atau aplikasi resmi bank terkait sebelum membuka simpanan.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LPS Education Banner Section -->
+        <section class="lps-section">
+            <div class="container">
+                <div class="lps-banner-box">
+                    <div class="lps-header">
+                        <div class="lps-badge-icon">
+                            <i class="fa-solid fa-building-shield"></i>
+                        </div>
+                        <div class="lps-title-group">
+                            <h3>Pentingnya Memahami Penjaminan LPS</h3>
+                            <p>Bunga tinggi bukan satu-satunya pertimbangan. Keamanan dana simpanan harus selalu menjadi prioritas utama Anda.</p>
+                        </div>
+                    </div>
+
+                    <p style="color: var(--text-secondary); font-size: 0.98rem; line-height: 1.7;">
+                        Lembaga Penjamin Simpanan (LPS) menjamin simpanan nasabah di bank yang beroperasi di Indonesia. Namun, agar simpanan Anda dijamin secara penuh jika terjadi risiko bank gagal bayar, simpanan tersebut wajib memenuhi <strong>Prinsip 3T LPS</strong>:
+                    </p>
+
+                    <div class="lps-pillars-grid">
+                        <div class="lps-pillar-card">
+                            <div class="pillar-tag">1T</div>
+                            <h4>Tercatat</h4>
+                            <p>Simpanan nasabah tercatat secara sah dan valid dalam pembukuan resmi bank terkait.</p>
+                        </div>
+
+                        <div class="lps-pillar-card">
+                            <div class="pillar-tag">2T</div>
+                            <h4>Tingkat Bunga Sesuai</h4>
+                            <p>Suku bunga yang diterima nasabah tidak melebihi tingkat bunga penjaminan yang ditetapkan oleh LPS.</p>
+                        </div>
+
+                        <div class="lps-pillar-card">
+                            <div class="pillar-tag">3T</div>
+                            <h4>Tidak Merugikan Bank</h4>
+                            <p>Nasabah tidak melakukan perbuatan yang merugikan bank (misalnya memiliki kredit macet).</p>
+                        </div>
+                    </div>
+
+                    <div class="lps-limit-notice">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <div>
+                            <strong>Batas Maksimal Penjaminan:</strong> LPS menjamin simpanan hingga <strong>Rp 2.000.000.000 (Dua Miliar Rupiah)</strong> per nasabah per bank. Jika bunga yang Anda peroleh melebihi batas penjaminan LPS, maka seluruh simpanan Anda tidak dijamin oleh LPS.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bank Types Comparison Section -->
+        <section class="bank-types-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Kategori Bank & Karakteristik Bunga Deposito</h2>
+                    <p>Pahami perbedaan profil risiko, kisaran bunga, dan fleksibilitas penempatan pada tiap jenis institusi perbankan.</p>
+                </div>
+
+                <div class="bank-types-grid">
+                    <!-- Bank Digital -->
+                    <div class="type-card digital">
+                        <span class="type-badge">Bank Digital</span>
+                        <h3>Ekosistem Digital & Fleksibel</h3>
+                        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+                            Menawarkan pembukaan 100% online lewat smartphone dengan bunga relatif agresif untuk menarik nasabah baru.
+                        </p>
+                        <div class="rate-range-box">
+                            <span class="lbl">Kisaran Bunga:</span>
+                            <span class="val">5.0% - 7.5%</span>
+                        </div>
+                        <ul class="type-features-list">
+                            <li><i class="fa-solid fa-check"></i> Minimal penempatan sangat terjangkau (mulai Rp100rb - Rp1jt)</li>
+                            <li><i class="fa-solid fa-check"></i> Tenor fleksibel mulai 7 hari, 1 bulan, hingga 1 tahun</li>
+                            <li><i class="fa-solid fa-triangle-exclamation" style="color: #f59e0b;"></i> Sebagian menawarkan bunga di atas batas LPS</li>
+                        </ul>
+                    </div>
+
+                    <!-- Bank Konvensional / BUMN -->
+                    <div class="type-card conventional">
+                        <span class="type-badge">Bank Konvensional / BUMN</span>
+                        <h3>Stabilitas & Jaringan Luas</h3>
+                        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+                            Pilihan utama untuk nasabah konservatif yang mengutamakan keamanan dan stabilitas jaringan perbankan skala besar.
+                        </p>
+                        <div class="rate-range-box">
+                            <span class="lbl">Kisaran Bunga:</span>
+                            <span class="val">2.5% - 4.25%</span>
+                        </div>
+                        <ul class="type-features-list">
+                            <li><i class="fa-solid fa-check"></i> Hampir selalu berada di dalam batas tingkat bunga LPS</li>
+                            <li><i class="fa-solid fa-check"></i> Dukungan kantor cabang fisik di seluruh Indonesia</li>
+                            <li><i class="fa-solid fa-check"></i> Minimal penempatan umumnya mulai Rp8 juta - Rp10 juta</li>
+                        </ul>
+                    </div>
+
+                    <!-- BPR -->
+                    <div class="type-card bpr">
+                        <span class="type-badge">BPR (Perekonomian Rakyat)</span>
+                        <h3>Imbal Hasil LPS Maksimal</h3>
+                        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+                            Menawarkan suku bunga resmi yang lebih tinggi karena batas penjaminan LPS untuk BPR lebih tinggi daripada bank umum.
+                        </p>
+                        <div class="rate-range-box">
+                            <span class="lbl">Kisaran Bunga:</span>
+                            <span class="val">6.0% - 6.75%</span>
+                        </div>
+                        <ul class="type-features-list">
+                            <li><i class="fa-solid fa-check"></i> Tingkat bunga penjaminan LPS BPR mencapai 6.75%</li>
+                            <li><i class="fa-solid fa-check"></i> Cocok untuk penempatan jangka menengah (6-12 bulan)</li>
+                            <li><i class="fa-solid fa-check"></i> Berkontribusi pada pemberdayaan ekonomi lokal & UMKM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workflow Steps -->
+        <section class="workflow-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Cara Menggunakan DepositoHunter MIFPRO</h2>
+                    <p>Langkah mudah menemukan produk simpanan terbaik hanya dalam beberapa menit.</p>
+                </div>
+
+                <div class="steps-timeline">
+                    <div class="step-card">
+                        <div class="step-number">01</div>
+                        <h3>Buka Platform BankRate ID</h3>
+                        <p>Kunjungi website depositohunter.mifpro.com untuk mengakses daftar produk deposito yang aktif dan terkurasi.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">02</div>
+                        <h3>Terapkan Filter Kebutuhan</h3>
+                        <p>Sesuaikan pencarian berdasarkan nominal modal, jangka waktu tenor yang diinginkan, dan tipe kategori bank.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">03</div>
+                        <h3>Simulasikan Imbal Hasil</h3>
+                        <p>Gunakan kalkulator deposito untuk menghitung perkiraan bunga kotor, potongan pajak 20%, dan imbal hasil bersih.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">04</div>
+                        <h3>Validasi LPS & Buka Akun</h3>
+                        <p>Pastikan penawaran memenuhi ketentuan penjaminan LPS, lalu lanjutkan pembukaan melalui kanal resmi bank terkait.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack -->
+        <section class="tech-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Teknologi Di Balik DepositoHunter</h2>
+                    <p>Dibangun dengan arsitektur web modern untuk kecepatan akses, keakuratan kalkulasi finansial, dan skalabilitas data perbankan.</p>
+                </div>
+
+                <div class="tech-tags-wrapper">
+                    <span class="tech-badge"><i class="fa-brands fa-php" style="color: #777bb4;"></i> PHP / Modern Web Engine</span>
+                    <span class="tech-badge"><i class="fa-solid fa-chart-pie" style="color: #10b981;"></i> Financial Simulation Engine</span>
+                    <span class="tech-badge"><i class="fa-solid fa-database" style="color: #00758f;"></i> MySQL Indexed Banking Rates</span>
+                    <span class="tech-badge"><i class="fa-brands fa-js" style="color: #f7df1e;"></i> Vanilla JavaScript DOM</span>
+                    <span class="tech-badge"><i class="fa-solid fa-mobile-screen" style="color: #3b82f6;"></i> Responsive Glassmorphic CSS</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Pertanyaan yang Sering Diajukan (FAQ)</h2>
+                    <p>Informasi seputar cara kerja platform DepositoHunter dan ketentuan produk simpanan deposito di Indonesia.</p>
+                </div>
+
+                <div class="faq-accordion">
+                    <!-- Q1 -->
+                    <div class="faq-item active">
+                        <div class="faq-question">
+                            <span>1. Apakah DepositoHunter melayani pembukaan rekening deposito langsung?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Tidak. DepositoHunter MIFPRO adalah platform informasi dan komparasi independen. Transaksi pembukaan rekening dan penempatan dana simpanan tetap dilakukan langsung melalui aplikasi atau kanal resmi dari masing-masing bank terkait demi keamanan nasabah.
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>2. Mengapa suku bunga deposito antar bank bisa sangat berbeda?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Perbedaan suku bunga dipengaruhi oleh strategi likuiditas, biaya operasional, dan target pasar tiap bank. Bank digital dan BPR umumnya memberikan suku bunga lebih tinggi untuk menarik nasabah baru dan menghimpun dana pihak ketiga (DPK), sementara bank konvensional besar sudah memiliki likuiditas dana murah (CASA) yang kuat.
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>3. Bagaimana ketentuan pajak 20% pada bunga deposito di Indonesia?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Berdasarkan Peraturan Pemerintah (PP) No. 131 Tahun 2000, imbal hasil bunga deposito dengan total nominal simpanan di atas Rp 7.500.000 dikenakan Pajak Penghasilan (PPh) Final sebesar 20%. Pajak ini dipotong langsung oleh pihak bank saat bunga dibayarkan.
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>4. Apa risikonya jika bunga bank melebihi batas penjaminan LPS?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Jika suku bunga yang Anda terima berada di atas tingkat bunga penjaminan LPS (TBP), maka berdasarkan aturan LPS, seluruh simpanan Anda di bank tersebut tidak masuk dalam kategori yang dijamin jika terjadi likuidasi atau risiko gagal bayar pada bank. Pastikan Anda memahami rasio imbal hasil versus risikonya.
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>5. Apakah bunga tertinggi selalu menjadi pilihan yang terbaik?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Belum tentu. Prinsip terbaik dalam memilih deposito adalah mencari titik temu yang seimbang antara imbal hasil, keamanan penjaminan LPS, jangka waktu penempatan dana (likuiditas), serta kredibilitas bank tersebut.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Banner -->
+        <section class="cta-banner-section">
+            <div class="container">
+                <div class="cta-banner-box">
+                    <h2>Sudahkah Anda Membandingkan Bunga Deposito?</h2>
+                    <p>Jangan biarkan aset Anda diam dengan imbal hasil minim. Temukan produk deposito terbaik dengan bunga optimal dan kepatuhan penjaminan LPS sekarang.</p>
+                    <div class="hero-cta-group" style="margin-bottom: 0;">
+                        <a href="https://depositohunter.mifpro.com" target="_blank" class="btn-primary-hero">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <span>Buka DepositoHunter Live</span>
+                        </a>
+                        <a href="https://mifpro.com/depositohunter-mifpro-perbandingan-bunga-deposito/" target="_blank" class="btn-secondary-hero">
+                            <i class="fa-solid fa-newspaper"></i>
+                            <span>Baca Artikel Selengkapnya</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Apps Directory</a>
+                <span>•</span>
+                <a href="kertas-kerja.html">Kertas Kerja</a>
+                <span>•</span>
+                <a href="log-api.html">Log API</a>
+                <span>•</span>
+                <a href="../Cv/index.html">Curriculum Vitae</a>
+                <span>•</span>
+                <a href="../Games/index.html">Game Portal</a>
+                <span>•</span>
+                <a href="../index.html">Mifpro Portal</a>
+            </div>
+            <p>&copy; 2026 Mifpro. All rights reserved. Developed with passion by Muhammad Miftahul Ulum.</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts: Theme Switcher, Calculator, FAQ & Filter -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Theme Switcher Logic
+            const themeToggle = document.getElementById('theme-toggle');
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+
+            if (currentTheme === 'light') {
+                document.body.classList.add('light-theme');
+                themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+            } else {
+                document.body.classList.remove('light-theme');
+                themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+            }
+
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('light-theme');
+                const isLight = document.body.classList.contains('light-theme');
+                themeToggle.innerHTML = isLight ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+                localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            });
+
+            // Live Interactive Calculator Logic
+            const principalInput = document.getElementById('calc-principal');
+            const rateInput = document.getElementById('calc-rate');
+            const tenorPills = document.querySelectorAll('.calc-tenor-pill');
+            const resGross = document.getElementById('res-gross');
+            const resTax = document.getElementById('res-tax');
+            const resNet = document.getElementById('res-net');
+            const resTotal = document.getElementById('res-total');
+
+            let selectedTenorMonths = 12;
+
+            function formatRupiah(num) {
+                return 'Rp ' + Math.round(num).toLocaleString('id-ID');
+            }
+
+            function recalculate() {
+                const principal = parseFloat(principalInput.value) || 0;
+                const rate = parseFloat(rateInput.value) || 0;
+                const months = selectedTenorMonths;
+
+                // Formula: Bunga Kotor = Nominal * (Bunga% / 100) * (Bulan / 12)
+                const grossInterest = principal * (rate / 100) * (months / 12);
+
+                // Pajak final 20% jika saldo penempatan > Rp7.500.000
+                let tax = 0;
+                if (principal > 7500000) {
+                    tax = grossInterest * 0.20;
+                }
+
+                const netYield = grossInterest - tax;
+                const totalEnd = principal + netYield;
+
+                resGross.textContent = formatRupiah(grossInterest);
+                resTax.textContent = tax > 0 ? '-' + formatRupiah(tax) : 'Rp 0 (Bebas Pajak)';
+                resNet.textContent = formatRupiah(netYield);
+                resTotal.textContent = formatRupiah(totalEnd);
+            }
+
+            principalInput.addEventListener('input', recalculate);
+            rateInput.addEventListener('input', recalculate);
+
+            tenorPills.forEach(pill => {
+                pill.addEventListener('click', () => {
+                    tenorPills.forEach(p => p.classList.remove('active'));
+                    pill.classList.add('active');
+                    selectedTenorMonths = parseInt(pill.getAttribute('data-months'), 10);
+                    recalculate();
+                });
+            });
+
+            // Filter Chips in Mockup
+            const chips = document.querySelectorAll('.mockup-chip');
+            const bankItems = document.querySelectorAll('.bank-card-item');
+
+            chips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    chips.forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+
+                    const id = chip.id;
+                    let targetCategory = 'all';
+                    if (id === 'filter-digital') targetCategory = 'digital';
+                    if (id === 'filter-conventional') targetCategory = 'conventional';
+                    if (id === 'filter-bpr') targetCategory = 'bpr';
+
+                    bankItems.forEach(item => {
+                        const itemType = item.getAttribute('data-bank-type');
+                        if (targetCategory === 'all' || itemType === targetCategory) {
+                            item.style.display = 'flex';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // FAQ Accordion Toggle
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    faqItems.forEach(fi => fi.classList.remove('active'));
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+
+            // Initial calculation run
+            recalculate();
+        });
+    </script>
+</body>
+
+</html>
